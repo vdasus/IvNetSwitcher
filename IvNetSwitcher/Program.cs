@@ -1,15 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using NDesk.Options;
 
 namespace IvNetSwitcher
 {
-    class Program
+    internal class Program
     {
-        static void Main(string[] args)
+        public static bool IsRun { get; set; }
+        public static bool IsHelp { get; set; }
+
+        private static void Main(string[] args)
         {
+            var p = new OptionSet
+            {
+                {"r|run", "run application", v => IsRun = v != null},
+                {"h|?|help", "show help and exit", v => IsHelp = v != null}
+            };
+
+            p.Parse(args);
+
         }
     }
 }
