@@ -5,6 +5,18 @@ VisualStudioVersion = 15.0.27130.2020
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IvNetSwitcher", "IvNetSwitcher\IvNetSwitcher.csproj", "{073E0A8A-C5E0-47C6-A9DC-EDD88472842F}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IvNetSwitcher.Core", "IvNetSwitcher.Core\IvNetSwitcher.Core.csproj", "{3ABD2F87-A04A-44B4-8F5C-AD0455CC969D}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IvNetSwitcher.UI", "IvNetSwitcher.UI\IvNetSwitcher.UI.csproj", "{EF212CC6-A587-4779-9ED3-A14074ED745C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IvNetSwitcher.Tests", "IvNetSwitcher.Tests\IvNetSwitcher.Tests.csproj", "{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IvNetSwitcher.Core.Tests", "IvNetSwitcher.Core.Tests\IvNetSwitcher.Core.Tests.csproj", "{FBCA94E5-A2DD-4596-8C16-F2755BB52BEA}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IvNetSwitcher.UI.Tests", "IvNetSwitcher.UI.Tests\IvNetSwitcher.UI.Tests.csproj", "{02C9997F-1F34-4682-87B4-32CFC93A3A9A}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Tests", "Tests", "{F14D51E2-8813-42FE-9F00-FD4D2B2807DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,9 +27,34 @@ Global
 		{073E0A8A-C5E0-47C6-A9DC-EDD88472842F}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{073E0A8A-C5E0-47C6-A9DC-EDD88472842F}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{073E0A8A-C5E0-47C6-A9DC-EDD88472842F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3ABD2F87-A04A-44B4-8F5C-AD0455CC969D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3ABD2F87-A04A-44B4-8F5C-AD0455CC969D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3ABD2F87-A04A-44B4-8F5C-AD0455CC969D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3ABD2F87-A04A-44B4-8F5C-AD0455CC969D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EF212CC6-A587-4779-9ED3-A14074ED745C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EF212CC6-A587-4779-9ED3-A14074ED745C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EF212CC6-A587-4779-9ED3-A14074ED745C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EF212CC6-A587-4779-9ED3-A14074ED745C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FBCA94E5-A2DD-4596-8C16-F2755BB52BEA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FBCA94E5-A2DD-4596-8C16-F2755BB52BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FBCA94E5-A2DD-4596-8C16-F2755BB52BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FBCA94E5-A2DD-4596-8C16-F2755BB52BEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{02C9997F-1F34-4682-87B4-32CFC93A3A9A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{02C9997F-1F34-4682-87B4-32CFC93A3A9A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{02C9997F-1F34-4682-87B4-32CFC93A3A9A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{02C9997F-1F34-4682-87B4-32CFC93A3A9A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{2E3DF5C2-8A38-4A03-86D7-8D463C917E47} = {F14D51E2-8813-42FE-9F00-FD4D2B2807DD}
+		{FBCA94E5-A2DD-4596-8C16-F2755BB52BEA} = {F14D51E2-8813-42FE-9F00-FD4D2B2807DD}
+		{02C9997F-1F34-4682-87B4-32CFC93A3A9A} = {F14D51E2-8813-42FE-9F00-FD4D2B2807DD}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {DF1A1AF6-F790-4263-AD0E-AD9B5B4B3C57}
