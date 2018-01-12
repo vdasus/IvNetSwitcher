@@ -11,8 +11,7 @@ namespace IvNetSwitcher.Core
         static Bootstrap()
         {
             Container = new Container();
-            Container.Register<IServices, Services>(Reuse.Singleton);
+            Container.Register<IServices, WiFiServices>(Reuse.Singleton);
         }
     }
-
 }

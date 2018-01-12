@@ -145,6 +145,7 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="DomainServices\WiFiServicesTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -153,6 +154,12 @@
   </ItemGroup>
   <ItemGroup>
     <Analyzer Include="..\packages\xunit.analyzers.0.8.0\analyzers\dotnet\cs\xunit.analyzers.dll" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\IvNetSwitcher.Core\IvNetSwitcher.Core.csproj">
+      <Project>{3ABD2F87-A04A-44B4-8F5C-AD0455CC969D}</Project>
+      <Name>IvNetSwitcher.Core</Name>
+    </ProjectReference>
   </ItemGroup>
   <Choose>
     <When Condition="'$(VisualStudioVersion)' == '10.0' And '$(IsCodedUITest)' == 'True'">
