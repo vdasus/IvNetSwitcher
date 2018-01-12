@@ -1,13 +1,12 @@
 ﻿using System.Collections.Generic;
-using System.Linq;
 using CSharpFunctionalExtensions;
-using SimpleWifi;
+using IvNetSwitcher.Core.Domain;
 
 namespace IvNetSwitcher.Core.Abstractions
 {
     public interface IServices
     {
-        List<AccessPoint> ListAccessPoints();
+        List<Network> ListAvailableNetworks();
         Result Connect(int index, string username, string password, string domain);
         void Disconnect();
         Result Status();

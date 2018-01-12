@@ -2,6 +2,11 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
+    <Copyright>vdasus.com</Copyright>
+    <Authors>vdasus.com</Authors>
+    <Company>vdasus.com</Company>
+    <AssemblyVersion>1.0.0.8</AssemblyVersion>
+    <FileVersion>1.0.0.8</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -20,5 +25,9 @@
   <ItemGroup>
     <PackageReference Update="NETStandard.Library" Version="2.0.1" />
   </ItemGroup>
+
+  <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
+    <Exec Command="if $(ConfigurationName) == Release $(SolutionDir)vrinc.exe -r -m0001 -f$(ProjectPath) -t&quot;Version&gt;(\d+)\.(\d+)\.(\d+)\.(\d+)&lt;/&quot;" />
+  </Target>
 
 </Project>

@@ -1,6 +1,4 @@
-﻿
-
-using Xunit;
+﻿using Xunit;
 
 namespace IvNetSwitcher.Tests
 {
@@ -10,7 +8,7 @@ namespace IvNetSwitcher.Tests
         public void Method_Result()
         {
             //Arrange
-            
+
             //Act
 
             //Assert

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using CSharpFunctionalExtensions;
 using IvNetSwitcher.Core.Abstractions;
+using IvNetSwitcher.Core.Domain;
 using SimpleWifi;
 
 namespace IvNetSwitcher.Core.DomainServices
@@ -21,9 +22,17 @@ namespace IvNetSwitcher.Core.DomainServices
 
         #region Implementation of IServices
 
-        public List<AccessPoint> ListAccessPoints()
+        public List<Network> ListAvailableNetworks()
         {
-            return _wifi.GetAccessPoints().OrderByDescending(ap => ap.SignalStrength).ToList();
+            var result = new List<Network>();
+
+            var lst = ListAccessPoints();
+            foreach (var zn in lst)
+            {
+                result.Add(new Network(zn.Name, zn.SignalStrength, zn.HasProfile, zn.IsSecure, zn.IsConnected));
+            }
+
+            return result;
         }
 
         public Result Connect(int index, string username, string password, string domain)
@@ -122,6 +131,13 @@ namespace IvNetSwitcher.Core.DomainServices
             return Result.Ok(selectedAp.Name);
         }
 
+        #endregion
+
+        #region Privates
+        private List<AccessPoint> ListAccessPoints()
+        {
+            return _wifi.GetAccessPoints().OrderByDescending(ap => ap.SignalStrength).ToList();
+        }
         #endregion
 
         #region Temporary part
