@@ -12,6 +12,7 @@ namespace IvNetSwitcher.Core
         {
             Container = new Container();
             Container.Register<IServices, WiFiServices>(Reuse.Transient);
+            Container.Register<IWorkerService, WorkerService>(Reuse.Singleton);
         }
     }
 }

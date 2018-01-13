@@ -6,12 +6,12 @@ namespace IvNetSwitcher.Core.Abstractions
 {
     public interface IServices
     {
-        List<Network> ListAvailableNetworks();
+        IReadOnlyList<Network> ListAvailableNetworks();
         Result Connect(int index, string username, string password, string domain);
         void Disconnect();
-        Result Status();
-        Result PrintProfileXml(int index);
-        Result ShowAccessPointInfo(int index);
-        Result DeleteProfile(int index);
+        Result<string> Status();
+        Result<string> PrintProfileXml(int index);
+        Result<string> ShowAccessPointInfo(int index);
+        Result<string> DeleteProfile(int index);
     }
 }

@@ -15,16 +15,25 @@ namespace IvNetSwitcher
     internal class Program
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
-        private static IServices _ds;
+        private static IWorkerService _worker;
+
         private static Profiles _profiles;
-        
-        public static bool IsRun { get; set; }
-        public static bool IsHelp { get; set; }
-        public static bool IsTest { get; set; }
-        public static bool IsList { get; set; }
-        public static int Delay { get; set; }
-        public static int Retry { get; set; }
-        public static Uri Host { get; set; }
+
+        #region Modifiers region
+
+        private static bool IsRun { get; set; }
+        private static bool IsHelp { get; set; }
+        private static bool IsTest { get; set; }
+        private static bool IsList { get; set; }
+        #endregion
+
+        #region Options region
+
+        private static int Delay { get; set; }
+        private static int Retry { get; set; }
+        private static Uri HostToPing { get; set; }
+
+        #endregion
 
         public static int Main(string[] args)
         {
@@ -32,13 +41,15 @@ namespace IvNetSwitcher
             {
                 _log.Info(@"IvNetSwitcher v{0} type -h or --help or -? to see usage", System.Reflection.Assembly.GetExecutingAssembly().GetName().Version);
 
+                FillOptionsFromSettings();
+
                 var p = new OptionSet
                 {
                     {"r|run", "run application", v => IsRun = v != null},
                     {"t|test", "test application", v => IsTest = v != null},
                     {"l|list", "list access points", v => IsList = v != null},
 
-                    {"p|host-to-ping=", "{HOST} to ping", v => Host = new Uri(v)},
+                    {"p|host-to-ping=", "{HOST} to ping", v => HostToPing = new Uri(v)},
                     { "d|delay=", "{DELAY} between pings", v => Delay = int.Parse(v)},
                     {"a|attempts=", "{ATTEMPTS} retry between network switch", v => Retry = int.Parse(v)},
                     
@@ -54,14 +65,14 @@ namespace IvNetSwitcher
                 }
 
                 // TODO don't forget to uncomment
-                //ConfigurationRootInit();
+                ConfigurationRootInit();
                 LoadProfiles();
 
-                _log.Info(_ds.Status());
+                _log.Info(_worker.GetCurrentStatus());
 
                 if (IsList)
                 {
-                    var rez = _ds.ListAvailableNetworks();
+                    var rez = _worker.ListAvailableNetworks();
                     foreach (var net in rez)
                     {
                         var str = $" Id:{net.Id} Network:{net.Name} Strength:{net.SignalStrength} "
@@ -86,6 +97,12 @@ namespace IvNetSwitcher
             }
         }
 
+        private static void FillOptionsFromSettings()
+        {
+            Delay = Settings.Default.Delay;
+            HostToPing = new Uri(Settings.Default.HostToPing);
+        }
+
         private static void LoadProfiles()
         {
             var serializer = new XmlSerializer(typeof(List<Profile>));
@@ -97,7 +114,7 @@ namespace IvNetSwitcher
 
         private static void ConfigurationRootInit()
         {
-            _ds = Bootstrap.Container.Resolve<IServices>();
+            _worker = Bootstrap.Container.Resolve<IWorkerService>();
         }
 
         private static void ShowHelp(OptionSet p)
@@ -111,7 +128,7 @@ namespace IvNetSwitcher
 
         private static void Do()
         {
-            throw new NotImplementedException();
+            _worker.Run(Delay, Retry);
         }
     }
 

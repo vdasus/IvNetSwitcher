@@ -22,7 +22,7 @@ namespace IvNetSwitcher.Core.DomainServices
 
         #region Implementation of IServices
 
-        public List<Network> ListAvailableNetworks()
+        public IReadOnlyList<Network> ListAvailableNetworks()
         {
             var lst = ListAccessPoints();
 
@@ -79,14 +79,14 @@ namespace IvNetSwitcher.Core.DomainServices
             _wifi.Disconnect();
         }
 
-        public Result Status()
+        public Result<string> Status()
         {
             return Result.Ok(_wifi.ConnectionStatus == WifiStatus.Connected
                 ? "Connected"
                 : "Not connected");
         }
 
-        public Result PrintProfileXml(int index)
+        public Result<string> PrintProfileXml(int index)
         {
             var accessPoints = ListAccessPoints();
             if (index > accessPoints.ToArray().Length || accessPoints.ToArray().Length == 0)
@@ -98,7 +98,7 @@ namespace IvNetSwitcher.Core.DomainServices
             return Result.Ok(selectedAp.GetProfileXML());
         }
 
-        public Result ShowAccessPointInfo(int index)
+        public Result<string> ShowAccessPointInfo(int index)
         {
             var accessPoints = ListAccessPoints();
             
@@ -107,17 +107,16 @@ namespace IvNetSwitcher.Core.DomainServices
                 return Result.Fail<string>("Index out of bounds");
             }
             AccessPoint selectedAp = accessPoints.ToList()[index];
-
-            return Result.Fail<string>(selectedAp.ToString());
+            return Result.Ok(selectedAp.ToString());
         }
 
-        public Result DeleteProfile(int index)
+        public Result<string> DeleteProfile(int index)
         {
             var accessPoints = ListAccessPoints();
             
             if (index > accessPoints.ToArray().Length || accessPoints.ToArray().Length == 0)
             {
-                return Result.Fail("Index out of bounds");
+                return Result.Fail<string>("Index out of bounds");
             }
 
             AccessPoint selectedAp = accessPoints.ToList()[index];
