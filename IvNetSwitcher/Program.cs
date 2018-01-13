@@ -54,7 +54,7 @@ namespace IvNetSwitcher
                     return (int)ExitCodes.Ok;
                 }
 
-                //ConfigurationRootInit();
+                ConfigurationRootInit();
                 LoadProfiles();
 
                 _log.Info(_ds.Status());
@@ -107,7 +107,6 @@ namespace IvNetSwitcher
             _log.Info(string.Empty);
             _log.Info("Options:");
             p.WriteOptionDescriptions(Console.Out);
-
         }
 
         private static void Do()
