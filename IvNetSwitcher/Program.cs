@@ -127,7 +127,7 @@ namespace IvNetSwitcher
 
         private static void Do()
         {
-            _worker.Run(Delay, Retry);
+            _worker.Run(_profiles, HostToPing,  Delay, Retry);
         }
     }
 

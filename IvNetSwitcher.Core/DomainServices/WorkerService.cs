@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.NetworkInformation;
+using System.Text;
+using CSharpFunctionalExtensions;
 using IvNetSwitcher.Core.Abstractions;
 using IvNetSwitcher.Core.Domain;
 
 namespace IvNetSwitcher.Core.DomainServices
 {
-    public class WorkerService: IWorkerService
+    public class WorkerService : IWorkerService
     {
         private readonly IServices _service;
 
@@ -27,9 +30,21 @@ namespace IvNetSwitcher.Core.DomainServices
             return _service.ListAvailableNetworks();
         }
 
-        public void Run(int delay, int retry, int times = 0)
+        public void Run(Profiles profiles, Uri hostToPing, int delay, int retry, int times = 0)
         {
-            throw new NotImplementedException();
+            var rez = MakePing(hostToPing);
+            if(rez.IsFailure) throw new ApplicationException();
+        }
+
+        private static Result MakePing(Uri hostToPing, int timeout = 120)
+        {
+            byte[] buffer = Encoding.ASCII.GetBytes("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+
+            Ping pingSender = new Ping();
+            PingOptions options = new PingOptions {DontFragment = true};
+            
+            PingReply reply = pingSender.Send(hostToPing.Host, timeout, buffer, options);
+            return reply.Status == IPStatus.Success ? Result.Ok() : Result.Fail("Can't connect");
         }
 
         #endregion

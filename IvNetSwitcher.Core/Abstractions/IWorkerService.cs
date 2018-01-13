@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using IvNetSwitcher.Core.Domain;
 
 namespace IvNetSwitcher.Core.Abstractions
@@ -7,6 +9,6 @@ namespace IvNetSwitcher.Core.Abstractions
     {
         string GetCurrentStatus();
         IReadOnlyList<Network> ListAvailableNetworks();
-        void Run(int delay, int retry, int times = 0);
+        void Run(Profiles profiles, Uri hostToPing, int delay, int retry, int times = 0);
     }
 }
