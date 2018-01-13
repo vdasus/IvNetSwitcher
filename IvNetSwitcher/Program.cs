@@ -50,9 +50,9 @@ namespace IvNetSwitcher
                     {"l|list", "list access points", v => IsList = v != null},
 
                     {"p|host-to-ping=", "{HOST} to ping", v => HostToPing = new Uri(v)},
-                    { "d|delay=", "{DELAY} between pings", v => Delay = int.Parse(v)},
+                    {"d|delay=", "{DELAY} between pings", v => Delay = int.Parse(v)},
                     {"a|attempts=", "{ATTEMPTS} retry between network switch", v => Retry = int.Parse(v)},
-                    
+
                     {"h|?|help", "show help and exit", v => IsHelp = v != null}
                 };
 
@@ -64,7 +64,6 @@ namespace IvNetSwitcher
                     return (int)ExitCodes.Ok;
                 }
 
-                // TODO don't forget to uncomment
                 ConfigurationRootInit();
                 LoadProfiles();
 
