@@ -8,10 +8,11 @@
         public string Password { get; set; }
         public string Domain { get; set; }
         public string Comment { get; set; }
+        public bool Active { get; set; }
 
         public Profile() { }
 
-        public Profile(int id, string name, string user, string password, string domain, string comment)
+        public Profile(int id, string name, string user, string password, string domain, string comment, bool active)
         {
             Id = id;
             Name = name;
@@ -19,6 +20,7 @@
             Password = password;
             Domain = domain;
             Comment = comment;
+            Active = active;
         }
     }
 }
