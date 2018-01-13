@@ -1,9 +1,6 @@
-﻿
-
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
-using AutoFixture.Dsl;
 using FluentAssertions;
 using IvNetSwitcher.Core.Domain;
 using Xunit;
@@ -34,8 +31,7 @@ namespace IvNetSwitcher.Core.Tests.Domain
                 "Items"
             });
         }
-
-
+        
         [Fact]
         public void GetCurrentProfile_Result()
         {
