@@ -1,7 +1,13 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Xml;
+using System.Xml.Serialization;
 using DryIoc;
 using IvNetSwitcher.Core;
 using IvNetSwitcher.Core.Abstractions;
+using IvNetSwitcher.Core.Domain;
+using IvNetSwitcher.Properties;
 using NDesk.Options;
 using NLog;
 
@@ -11,6 +17,7 @@ namespace IvNetSwitcher
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private static IServices _ds;
+        private static List<Profile> _profiles;
 
         public static bool IsRun { get; set; }
         public static bool IsHelp { get; set; }
@@ -47,7 +54,8 @@ namespace IvNetSwitcher
                     return (int)ExitCodes.Ok;
                 }
 
-                ConfigurationRootInit();
+                //ConfigurationRootInit();
+                LoadProfiles();
 
                 _log.Info(_ds.Status());
 
@@ -73,14 +81,18 @@ namespace IvNetSwitcher
             }
             catch (Exception ex)
             {
-                _log.Error(ex);
+                _log.Error(ex.Message);
                 return (int) ExitCodes.Error;
             }
         }
 
-        private static void Do()
+        private static void LoadProfiles()
         {
-            throw new NotImplementedException();
+            var serializer = new XmlSerializer(typeof(List<Profile>));
+            using (TextReader reader = new StringReader(Settings.Default.Profiles))
+            {
+                _profiles = (List<Profile>)serializer.Deserialize(reader);
+            }
         }
 
         private static void ConfigurationRootInit()
@@ -96,6 +108,11 @@ namespace IvNetSwitcher
             _log.Info("Options:");
             p.WriteOptionDescriptions(Console.Out);
 
+        }
+
+        private static void Do()
+        {
+            throw new NotImplementedException();
         }
     }
 

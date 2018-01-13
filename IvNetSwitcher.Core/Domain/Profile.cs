@@ -4,12 +4,14 @@ namespace IvNetSwitcher.Core.Domain
 {
     public class Profile: ValueObject<Profile>
     {
-        public int Id { get; }
-        public string Name { get; }
-        public string User { get; }
-        public string Password { get; }
-        public string Domain { get; }
-        public string Comment { get; }
+        public int Id { get; set; }
+        public string Name { get; set; }
+        public string User { get; set; }
+        public string Password { get; set; }
+        public string Domain { get; set; }
+        public string Comment { get; set; }
+
+        public Profile() { }
 
         public Profile(int id, string name, string user, string password, string domain, string comment)
         {

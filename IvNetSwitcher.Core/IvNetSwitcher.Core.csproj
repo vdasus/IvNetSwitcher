@@ -5,9 +5,13 @@
     <Copyright>vdasus.com</Copyright>
     <Authors>vdasus.com</Authors>
     <Company>vdasus.com</Company>
-    <AssemblyVersion>1.0.0.9</AssemblyVersion>
-    <FileVersion>1.0.0.9</FileVersion>
+    <AssemblyVersion>1.0.0.10</AssemblyVersion>
+    <FileVersion>1.0.0.10</FileVersion>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="IvNetSwitcher.Core.~v" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="CSharpFunctionalExtensions" Version="1.8.1" />

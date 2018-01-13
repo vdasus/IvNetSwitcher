@@ -8,5 +8,17 @@
     <Setting Name="HostToPing" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://google.com</Value>
     </Setting>
+    <Setting Name="Profiles" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">&lt;ArrayOfProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+            &lt;Profile&gt;
+              &lt;Id&gt;1&lt;/Id&gt;
+              &lt;Name&gt;name&lt;/Name&gt;
+              &lt;User&gt;user&lt;/User&gt;
+              &lt;Password&gt;password&lt;/Password&gt;
+              &lt;Domain&gt;domain&lt;/Domain&gt;
+              &lt;Comment&gt;comment&lt;/Comment&gt;
+            &lt;/Profile&gt;
+          &lt;/ArrayOfProfile&gt;</Value>
+    </Setting>
   </Settings>
 </SettingsFile>

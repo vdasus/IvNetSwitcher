@@ -40,5 +40,25 @@ namespace IvNetSwitcher.Properties {
                 return ((string)(this["HostToPing"]));
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"
+          <ArrayOfProfile xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+            <Profile>
+              <Id>1</Id>
+              <Name>name</Name>
+              <User>user</User>
+              <Password>password</Password>
+              <Domain>domain</Domain>
+              <Comment>comment</Comment>
+            </Profile>
+          </ArrayOfProfile>
+        ")]
+        public string Profiles {
+            get {
+                return ((string)(this["Profiles"]));
+            }
+        }
     }
 }
