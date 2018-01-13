@@ -16,7 +16,8 @@ namespace IvNetSwitcher
         public static bool IsHelp { get; set; }
         public static bool IsTest { get; set; }
         public static bool IsList { get; set; }
-        public static string Delay { get; set; }
+        public static int Delay { get; set; }
+        public static int Retry { get; set; }
         public static Uri Host { get; set; }
 
         public static int Main(string[] args)
@@ -30,8 +31,11 @@ namespace IvNetSwitcher
                     {"r|run", "run application", v => IsRun = v != null},
                     {"t|test", "test application", v => IsTest = v != null},
                     {"l|list", "list access points", v => IsList = v != null},
-                    {"d|delay=", "{DELAY} between pings", v => Delay = v},
+
                     {"p|host-to-ping=", "{HOST} to ping", v => Host = new Uri(v)},
+                    { "d|delay=", "{DELAY} between pings", v => Delay = int.Parse(v)},
+                    {"a|attempts=", "{ATTEMPTS} retry between network switch", v => Retry = int.Parse(v)},
+                    
                     {"h|?|help", "show help and exit", v => IsHelp = v != null}
                 };
 
@@ -50,13 +54,13 @@ namespace IvNetSwitcher
                 if (IsList)
                 {
                     var rez = _ds.ListAvailableNetworks();
-                    foreach (var network in rez)
+                    foreach (var net in rez)
                     {
-                        var str = $" Network:{network.Name} Strength:{network.SignalStrength}"
-                                  + (network.IsSecure
+                        var str = $" Id:{net.Id} Network:{net.Name} Strength:{net.SignalStrength} "
+                                  + (net.IsSecure
                                       ? "secure"
                                       : "insecure")
-                                  + (network.IsConnected
+                                  + (net.IsConnected
                                       ? "connected"
                                       : "disconnected");
                         _log.Info(str);

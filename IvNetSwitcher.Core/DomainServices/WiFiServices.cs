@@ -24,15 +24,10 @@ namespace IvNetSwitcher.Core.DomainServices
 
         public List<Network> ListAvailableNetworks()
         {
-            var result = new List<Network>();
-
             var lst = ListAccessPoints();
-            foreach (var zn in lst)
-            {
-                result.Add(new Network(zn.Name, zn.SignalStrength, zn.HasProfile, zn.IsSecure, zn.IsConnected));
-            }
 
-            return result;
+            return lst.Select((zn, index) =>
+                new Network(index, zn.Name, zn.SignalStrength, zn.HasProfile, zn.IsSecure, zn.IsConnected)).ToList();
         }
 
         public Result Connect(int index, string username, string password, string domain)
