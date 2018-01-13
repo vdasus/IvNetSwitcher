@@ -1,8 +1,6 @@
-﻿using CSharpFunctionalExtensions;
-
-namespace IvNetSwitcher.Core.Domain
+﻿namespace IvNetSwitcher.Core.Domain
 {
-    public class Profile: ValueObject<Profile>
+    public class Profile
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -22,30 +20,5 @@ namespace IvNetSwitcher.Core.Domain
             Domain = domain;
             Comment = comment;
         }
-
-        #region Overrides of ValueObject<Profile>
-
-        protected override bool EqualsCore(Profile other)
-        {
-            return Id == other.Id 
-                && Name == other.Name
-                && User == other.User
-                && Password == other.Password
-                && Domain == other.Domain
-                && Comment == other.Comment;
-        }
-
-        protected override int GetHashCodeCore()
-        {
-            int hashCode = Id.GetHashCode();
-            hashCode = (hashCode * 397) ^ Name.GetHashCode();
-            hashCode = (hashCode * 397) ^ User.GetHashCode();
-            hashCode = (hashCode * 397) ^ Password.GetHashCode();
-            hashCode = (hashCode * 397) ^ Domain.GetHashCode();
-            hashCode = (hashCode * 397) ^ Comment.GetHashCode();
-            return hashCode;
-        }
-
-        #endregion
     }
 }
