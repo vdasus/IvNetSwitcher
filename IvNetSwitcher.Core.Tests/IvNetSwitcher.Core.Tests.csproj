@@ -193,6 +193,8 @@
   </Choose>
   <ItemGroup>
     <Compile Include="DomainServices\WiFiServicesTests.cs" />
+    <Compile Include="Domain\ProfilesTests.cs" />
+    <Compile Include="Domain\ProfileTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

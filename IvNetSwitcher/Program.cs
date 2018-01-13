@@ -54,7 +54,7 @@ namespace IvNetSwitcher
                 }
 
                 // TODO don't forget to uncomment
-                ConfigurationRootInit();
+                //ConfigurationRootInit();
                 LoadProfiles();
 
                 _log.Info(_ds.Status());
