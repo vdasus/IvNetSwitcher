@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Xml.Serialization;
+using CSharpFunctionalExtensions;
 using DryIoc;
 using IvNetSwitcher.Core;
 using IvNetSwitcher.Core.Abstractions;
@@ -16,8 +18,8 @@ namespace IvNetSwitcher
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private static IServices _ds;
-        private static List<Profile> _profiles;
-
+        private static Profiles _profiles;
+        
         public static bool IsRun { get; set; }
         public static bool IsHelp { get; set; }
         public static bool IsTest { get; set; }
@@ -53,6 +55,7 @@ namespace IvNetSwitcher
                     return (int)ExitCodes.Ok;
                 }
 
+                // TODO don't forget to uncomment
                 ConfigurationRootInit();
                 LoadProfiles();
 
@@ -90,7 +93,7 @@ namespace IvNetSwitcher
             var serializer = new XmlSerializer(typeof(List<Profile>));
             using (TextReader reader = new StringReader(Settings.Default.Profiles))
             {
-                _profiles = (List<Profile>)serializer.Deserialize(reader);
+                _profiles = new Profiles((List<Profile>)serializer.Deserialize(reader));
             }
         }
 
