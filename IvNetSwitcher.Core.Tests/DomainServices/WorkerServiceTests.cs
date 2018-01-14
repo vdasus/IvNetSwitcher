@@ -23,7 +23,7 @@ namespace IvNetSwitcher.Core.Tests.DomainServices
             Action sut =
                 () =>
                 {
-                    ws.Run(fixture.Create<Profiles>(), new Uri("https://www.google.com"), 0, 0, 0);
+                    ws.Run(fixture.Create<Profiles>(), new Uri("https://www.google.com"), 1, 1, "test", 1);
                 };
             
             //Assert

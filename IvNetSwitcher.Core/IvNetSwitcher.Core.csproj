@@ -5,8 +5,8 @@
     <Copyright>vdasus.com</Copyright>
     <Authors>vdasus.com</Authors>
     <Company>vdasus.com</Company>
-    <AssemblyVersion>1.0.0.12</AssemblyVersion>
-    <FileVersion>1.0.0.12</FileVersion>
+    <AssemblyVersion>1.0.0.16</AssemblyVersion>
+    <FileVersion>1.0.0.16</FileVersion>
   </PropertyGroup>
 
   <ItemGroup>

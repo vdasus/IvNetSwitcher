@@ -2,22 +2,23 @@
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Text;
+using System.Threading;
 using CSharpFunctionalExtensions;
 using IvNetSwitcher.Core.Abstractions;
 using IvNetSwitcher.Core.Domain;
+using NLog;
 
 namespace IvNetSwitcher.Core.DomainServices
 {
     public class WorkerService : IWorkerService
     {
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private readonly IServices _service;
 
         public WorkerService(IServices service)
         {
             _service = service;
         }
-
-        #region Implementation of IWorkerService
 
         public string GetCurrentStatus()
         {
@@ -30,15 +31,35 @@ namespace IvNetSwitcher.Core.DomainServices
             return _service.ListAvailableNetworks();
         }
 
-        public void Run(Profiles profiles, Uri hostToPing, int delay, int retry, int times = 0)
+        public void Run(Profiles profiles, Uri hostToPing, int delay, int retry, string salt, int times = 0)
         {
-            var rez = MakePing(hostToPing);
-            if(rez.IsFailure) throw new ApplicationException();
+            // TODO code just to check
+            for (int i = 0; i < times; i++)
+            {
+                _log.Trace($"ping to {profiles.GetCurrentProfile().Name} successful");
+                var rez = MakePing(hostToPing);
+
+                if (rez.IsFailure)
+                {
+                    _log.Error($"Failure connecting to {profiles.GetCurrentProfile().Name}");
+                    var prof = profiles.CircularGetNextProfile();
+
+                    for (int j = 0; j < retry; j++)
+                    {
+                        _log.Debug($"Trying to connect to {prof.Name}");
+                        var connected = _service.Connect(prof.Id, prof.User, prof.GetDecPwd(salt), prof.Domain);
+                        if (connected.IsSuccess) break;
+                    }
+                };
+                Thread.Sleep(TimeSpan.FromSeconds(delay));
+            }
         }
+
+        #region Privates region
 
         private static Result MakePing(Uri hostToPing, int timeout = 120)
         {
-            byte[] buffer = Encoding.ASCII.GetBytes("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+            byte[] buffer = Encoding.ASCII.GetBytes("PING");
 
             Ping pingSender = new Ping();
             PingOptions options = new PingOptions {DontFragment = true};

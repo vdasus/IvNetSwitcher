@@ -43,15 +43,34 @@ namespace IvNetSwitcher.Properties {
         
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("261A2220-C66E-496E-9DC0-5FF5174B7711")]
+        public string EncSalt {
+            get {
+                return ((string)(this["EncSalt"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"
           <ArrayOfProfile xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
             <Profile>
               <Id>1</Id>
               <Name>name</Name>
               <User>user</User>
-              <Password>password</Password>
+              <Password>ukj3UWDMn3cGJvmmgKDfypKhz4V3bYg/Bfl4c4apiBRxpSyAQXDZxItncyzKMkIkjnD7FTOjPhlaQK5ws6WRWf1PqtBqWY3xEBFIqomf4BU3sO2hw8Xref0d8W7e5fC7</Password>
               <Domain>domain</Domain>
               <Comment>comment</Comment>
+              <Active>false</Active>
+            </Profile>
+            <Profile>
+              <Id>2</Id>
+              <Name>name2</Name>
+              <User>user2</User>
+              <Password>ukj3UWDMn3cGJvmmgKDfypKhz4V3bYg/Bfl4c4apiBRxpSyAQXDZxItncyzKMkIkjnD7FTOjPhlaQK5ws6WRWf1PqtBqWY3xEBFIqomf4BU3sO2hw8Xref0d8W7e5fC7</Password>
+              <Domain>domain2</Domain>
+              <Comment>comment2</Comment>
+              <Active>true</Active>
             </Profile>
           </ArrayOfProfile>
         ")]

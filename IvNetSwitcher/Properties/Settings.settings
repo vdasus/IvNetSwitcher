@@ -8,17 +8,32 @@
     <Setting Name="HostToPing" Type="System.String" Scope="Application">
       <Value Profile="(Default)">http://google.com</Value>
     </Setting>
+    <Setting Name="EncSalt" Type="System.String" Scope="Application">
+      <Value Profile="(Default)">261A2220-C66E-496E-9DC0-5FF5174B7711</Value>
+    </Setting>
     <Setting Name="Profiles" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">&lt;ArrayOfProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
+      <Value Profile="(Default)">
+          &lt;ArrayOfProfile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
             &lt;Profile&gt;
               &lt;Id&gt;1&lt;/Id&gt;
               &lt;Name&gt;name&lt;/Name&gt;
               &lt;User&gt;user&lt;/User&gt;
-              &lt;Password&gt;password&lt;/Password&gt;
+              &lt;Password&gt;ukj3UWDMn3cGJvmmgKDfypKhz4V3bYg/Bfl4c4apiBRxpSyAQXDZxItncyzKMkIkjnD7FTOjPhlaQK5ws6WRWf1PqtBqWY3xEBFIqomf4BU3sO2hw8Xref0d8W7e5fC7&lt;/Password&gt;
               &lt;Domain&gt;domain&lt;/Domain&gt;
               &lt;Comment&gt;comment&lt;/Comment&gt;
+              &lt;Active&gt;false&lt;/Active&gt;
             &lt;/Profile&gt;
-          &lt;/ArrayOfProfile&gt;</Value>
+            &lt;Profile&gt;
+              &lt;Id&gt;2&lt;/Id&gt;
+              &lt;Name&gt;name2&lt;/Name&gt;
+              &lt;User&gt;user2&lt;/User&gt;
+              &lt;Password&gt;ukj3UWDMn3cGJvmmgKDfypKhz4V3bYg/Bfl4c4apiBRxpSyAQXDZxItncyzKMkIkjnD7FTOjPhlaQK5ws6WRWf1PqtBqWY3xEBFIqomf4BU3sO2hw8Xref0d8W7e5fC7&lt;/Password&gt;
+              &lt;Domain&gt;domain2&lt;/Domain&gt;
+              &lt;Comment&gt;comment2&lt;/Comment&gt;
+              &lt;Active&gt;true&lt;/Active&gt;
+            &lt;/Profile&gt;
+          &lt;/ArrayOfProfile&gt;
+        </Value>
     </Setting>
   </Settings>
 </SettingsFile>

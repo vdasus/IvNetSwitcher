@@ -9,6 +9,6 @@ namespace IvNetSwitcher.Core.Abstractions
     {
         string GetCurrentStatus();
         IReadOnlyList<Network> ListAvailableNetworks();
-        void Run(Profiles profiles, Uri hostToPing, int delay, int retry, int times = 0);
+        void Run(Profiles profiles, Uri hostToPing, int delay, int retry, string salt, int times = 0);
     }
 }

@@ -6,6 +6,7 @@ using DryIoc;
 using IvNetSwitcher.Core;
 using IvNetSwitcher.Core.Abstractions;
 using IvNetSwitcher.Core.Domain;
+using IvNetSwitcher.Core.Shared;
 using IvNetSwitcher.Properties;
 using NDesk.Options;
 using NLog;
@@ -25,13 +26,16 @@ namespace IvNetSwitcher
         private static bool IsHelp { get; set; }
         private static bool IsTest { get; set; }
         private static bool IsList { get; set; }
+        public static string ToEncrypt { get; set; }
+
         #endregion
 
         #region Options region
 
-        private static int Delay { get; set; }
-        private static int Retry { get; set; }
-        private static Uri HostToPing { get; set; }
+        private static int DelayInSec { get; set; } = 30;
+        private static int Retry { get; set; } = 3;
+        private static int MaxTimesToCheck { get; set; } = 0;
+        private static Uri HostToPing { get; set; } = new Uri("http://www.google.com");
 
         #endregion
 
@@ -48,10 +52,12 @@ namespace IvNetSwitcher
                     {"r|run", "run application", v => IsRun = v != null},
                     {"t|test", "test application", v => IsTest = v != null},
                     {"l|list", "list access points", v => IsList = v != null},
+                    {"e|encrypt=", "encrypt {STRING} to password", v => ToEncrypt = v},
 
-                    {"p|host-to-ping=", "{HOST} to ping", v => HostToPing = new Uri(v)},
-                    {"d|delay=", "{DELAY} between pings", v => Delay = int.Parse(v)},
-                    {"a|attempts=", "{ATTEMPTS} retry between network switch", v => Retry = int.Parse(v)},
+                    {"p|host-to-ping=", "{HOST} to ping, [default http://www.google.com]", v => HostToPing = new Uri(v)},
+                    {"d|delay=", "{DELAY} between pings in seconds, [default 30 second]", v => DelayInSec = int.Parse(v)},
+                    {"a|attempts=", "{ATTEMPTS} retry between network switch [default 3]", v => Retry = int.Parse(v)},
+                    {"m|max-checks=", "{TIMES} to check networks. [default 0, unlimited]", v => MaxTimesToCheck = int.Parse(v)},
 
                     {"h|?|help", "show help and exit", v => IsHelp = v != null}
                 };
@@ -64,6 +70,12 @@ namespace IvNetSwitcher
                     return (int)ExitCodes.Ok;
                 }
 
+                if(!string.IsNullOrWhiteSpace(ToEncrypt))
+                {
+                    Console.WriteLine(Utils.GetEncryptedString(ToEncrypt, Settings.Default.EncSalt));
+                    return (int)ExitCodes.Ok;
+                }
+                
                 ConfigurationRootInit();
                 LoadProfiles();
 
@@ -95,10 +107,10 @@ namespace IvNetSwitcher
                 return (int) ExitCodes.Error;
             }
         }
-
+        
         private static void FillOptionsFromSettings()
         {
-            Delay = Settings.Default.Delay;
+            DelayInSec = Settings.Default.Delay;
             HostToPing = new Uri(Settings.Default.HostToPing);
         }
 
@@ -127,7 +139,7 @@ namespace IvNetSwitcher
 
         private static void Do()
         {
-            _worker.Run(_profiles, HostToPing,  Delay, Retry);
+            _worker.Run(_profiles, HostToPing,  DelayInSec, Retry, Settings.Default.EncSalt, MaxTimesToCheck);
         }
     }
 
