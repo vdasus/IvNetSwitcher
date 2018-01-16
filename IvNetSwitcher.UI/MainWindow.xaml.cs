@@ -1,6 +1,4 @@
-﻿using System.Windows;
-
-namespace IvNetSwitcher.UI
+﻿namespace IvNetSwitcher.UI
 {
     /// <summary>
     /// Interaction logic for MainWindow.xaml
