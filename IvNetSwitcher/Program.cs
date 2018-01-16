@@ -6,6 +6,7 @@ using DryIoc;
 using IvNetSwitcher.Core;
 using IvNetSwitcher.Core.Abstractions;
 using IvNetSwitcher.Core.Domain;
+using IvNetSwitcher.Core.Dto;
 using IvNetSwitcher.Core.Shared;
 using IvNetSwitcher.Properties;
 using NDesk.Options;
@@ -16,10 +17,12 @@ namespace IvNetSwitcher
     internal class Program
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+
+        private static INetService _net;
         private static IWorkerService _worker;
 
         private static Profiles _profiles;
-
+        
         #region Modifiers region
 
         private static bool IsRun { get; set; }
@@ -79,11 +82,12 @@ namespace IvNetSwitcher
                 ConfigurationRootInit();
                 LoadProfiles();
 
-                _log.Info(_worker.GetCurrentStatus());
+
+                _log.Info(_net.Status());
 
                 if (IsList)
                 {
-                    var rez = _worker.ListAvailableNetworks();
+                    var rez = _net.ListAvailableNetworks();
                     foreach (var net in rez)
                     {
                         var str = $" Id:{net.Id} Network:{net.Name} Strength:{net.SignalStrength} "
@@ -116,16 +120,17 @@ namespace IvNetSwitcher
 
         private static void LoadProfiles()
         {
-            var serializer = new XmlSerializer(typeof(List<Profile>));
+            var serializer = new XmlSerializer(typeof(List<ProfileDto>));
             using (TextReader reader = new StringReader(Settings.Default.Profiles))
             {
-                _profiles = new Profiles((List<Profile>)serializer.Deserialize(reader));
+                _profiles = new Profiles(_net, (List<ProfileDto>)serializer.Deserialize(reader), Settings.Default.EncSalt);
             }
         }
 
         private static void ConfigurationRootInit()
         {
             _worker = Bootstrap.Container.Resolve<IWorkerService>();
+            _net = Bootstrap.Container.Resolve<INetService>();
         }
 
         private static void ShowHelp(OptionSet p)
@@ -139,7 +144,7 @@ namespace IvNetSwitcher
 
         private static void Do()
         {
-            _worker.Run(_profiles, HostToPing,  DelayInSec, Retry, Settings.Default.EncSalt, MaxTimesToCheck);
+            _worker.Run(_profiles, HostToPing,  DelayInSec, Retry, MaxTimesToCheck);
         }
     }
 

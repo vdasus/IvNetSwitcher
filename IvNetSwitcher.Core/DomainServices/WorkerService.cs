@@ -13,25 +13,8 @@ namespace IvNetSwitcher.Core.DomainServices
     public class WorkerService : IWorkerService
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
-        private readonly IServices _service;
-
-        public WorkerService(IServices service)
-        {
-            _service = service;
-        }
-
-        public string GetCurrentStatus()
-        {
-            var rez = _service.Status();
-            return rez.IsSuccess ? rez.Value : rez.Error;
-        }
-
-        public IReadOnlyList<Network> ListAvailableNetworks()
-        {
-            return _service.ListAvailableNetworks();
-        }
-
-        public void Run(Profiles profiles, Uri hostToPing, int delay, int retry, string salt, int times = 0)
+        
+        public void Run(Profiles profiles, Uri hostToPing, int delay, int retry, int times = 0)
         {
             // TODO code just to check
             int i = 0;
@@ -48,8 +31,8 @@ namespace IvNetSwitcher.Core.DomainServices
                     for (int j = 0; j < retry; j++)
                     {
                         _log.Debug($"Trying to connect to {prof.Name}");
-                        var connected = _service.Connect(prof.Id, prof.User, prof.GetDecPwd(salt), prof.Domain);
-                        if (connected.IsSuccess) break;
+                        prof.Connect();
+                        if (prof.IsConnected) break;
                     }
                 };
                 Thread.Sleep(TimeSpan.FromSeconds(delay));

@@ -4,12 +4,13 @@ using IvNetSwitcher.Core.Domain;
 
 namespace IvNetSwitcher.Core.Abstractions
 {
-    public interface IServices
+    public interface INetService
     {
         IReadOnlyList<Network> ListAvailableNetworks();
         Result Connect(int index, string username, string password, string domain);
+        Result CheckIsConnected();
         void Disconnect();
-        Result<string> Status();
+        string Status();
         Result<string> PrintProfileXml(int index);
         Result<string> ShowAccessPointInfo(int index);
         Result<string> DeleteProfile(int index);

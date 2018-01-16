@@ -34,7 +34,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="CSharpFunctionalExtensions">
-      <HintPath>C:\Users\me\.nuget\packages\csharpfunctionalextensions\1.8.1\lib\netstandard2.0\CSharpFunctionalExtensions.dll</HintPath>
+      <HintPath>..\..\..\..\Users\V.Devgutis\.nuget\packages\csharpfunctionalextensions\1.8.1\lib\netstandard2.0\CSharpFunctionalExtensions.dll</HintPath>
     </Reference>
     <Reference Include="DryIoc, Version=2.12.6.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\DryIoc.dll.2.12.6\lib\net45\DryIoc.dll</HintPath>

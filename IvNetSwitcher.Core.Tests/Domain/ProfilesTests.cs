@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using AutoFixture;
 using FluentAssertions;
 using IvNetSwitcher.Core.Domain;
 using Xunit;
@@ -9,11 +8,11 @@ namespace IvNetSwitcher.Core.Tests.Domain
 {
     public class ProfilesTests
     {
-        private readonly Fixture _fixture;
+        private readonly Profiles _sutObjects;
 
         public ProfilesTests()
         {
-            _fixture = new Fixture();
+            _sutObjects = ProfilesFactory.CreateProfiles();
         }
 
         [Fact]
@@ -31,17 +30,15 @@ namespace IvNetSwitcher.Core.Tests.Domain
                 "Items"
             });
         }
-        
+
         [Fact]
         public void GetCurrentProfile_Result()
         {
             //Arrange
-            Profiles sutObjects = _fixture.Create<Profiles>();
-            
             //Act
-            var sut = sutObjects.GetCurrentProfile();
-            var id = sutObjects.Items.FirstOrDefault(x => x.Active)?.Id;
-            
+            var sut = _sutObjects.GetCurrentProfile();
+            var id = _sutObjects.Items.FirstOrDefault(x => x.Active)?.Id;
+
             //Assert
             sut.Should().NotBeNull();
             sut.Id.Should().Be(id);
@@ -51,18 +48,11 @@ namespace IvNetSwitcher.Core.Tests.Domain
         public void CircularGetNextProfile_Result()
         {
             //Arrange
-            Profiles sutObjects = new Profiles(new List<Profile>()
-            {
-                _fixture.Build<Profile>().With(x => x.Id, 1).With(x => x.Active, false).Create(),
-                _fixture.Build<Profile>().With(x => x.Id, 2).With(x => x.Active, true).Create(),
-                _fixture.Build<Profile>().With(x => x.Id, 3).With(x => x.Active, false).Create()
-            });
-
             //Act
-            var sut0 = sutObjects.CircularGetNextProfile();
-            var sut1 = sutObjects.CircularGetNextProfile();
-            var sut2 = sutObjects.CircularGetNextProfile();
-            var sut3 = sutObjects.CircularGetNextProfile();
+            var sut0 = _sutObjects.CircularGetNextProfile();
+            var sut1 = _sutObjects.CircularGetNextProfile();
+            var sut2 = _sutObjects.CircularGetNextProfile();
+            var sut3 = _sutObjects.CircularGetNextProfile();
 
             //Assert
             sut0.Id.Should().Be(3);
