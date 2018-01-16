@@ -7,7 +7,7 @@ using Xunit;
 
 namespace IvNetSwitcher.Core.Tests.DomainServices
 {
-    public class WiFiServicesTests
+    public class WiFiServiceTests
     {
 #if DEVELPOPER_WITHOUT_WIFI
         [Fact]

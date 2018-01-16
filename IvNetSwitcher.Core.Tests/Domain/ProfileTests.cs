@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using AutoFixture;
+using AutoFixture.AutoMoq;
 using FluentAssertions;
 using IvNetSwitcher.Core.Domain;
 using Xunit;
@@ -9,11 +10,17 @@ namespace IvNetSwitcher.Core.Tests.Domain
 {
     public class ProfileTests
     {
-        private Fixture _fixture;
+        private const string SALT = "261A2220-C66E-496E-9DC0-5FF5174B7711";
+        private const string PWD =
+            @"IbP8X/dRF+c3YeCDtBg4d7ZzhQvhYDIZirJ9gAt/eoXPgH3QOWGWpeG65ZfrzPb3d9K2sY17bojnsYck3gaWYD+F+vq4jrVqvrh0fei3l5gWkGiBjP0xNXGw7Nm3ds/Y";
+
+        private readonly IFixture _fixture;
 
         public ProfileTests()
         {
-            _fixture = new Fixture();
+            _fixture = new Fixture().Customize(new AutoMoqCustomization());
+            _fixture.Customizations.Add(new SharedForTests.ProfileTests.PasswordArg<Profile>(PWD));
+            _fixture.Customizations.Add(new SharedForTests.ProfileTests.SaltArg<Profile>(SALT));
         }
 
         [Fact]
@@ -28,7 +35,7 @@ namespace IvNetSwitcher.Core.Tests.Domain
             //Assert
             fieldNames.Should().BeEquivalentTo(new List<string>
             {
-                "Id", "Name", "User", "Password", "Domain", "Comment", "Active"
+                "Id", "Name", "User", "Password", "Domain", "Comment", "Active", "IsConnected"
             });
         }
 
@@ -36,7 +43,7 @@ namespace IvNetSwitcher.Core.Tests.Domain
         public void ctor_AllFieldsInitialized()
         {
             //Arrange
-            var sut = _fixture.Build<Profile>().With(x => x.Active, true).Create();
+            var sut = _fixture.Create<Profile>();
             
             //Act
             //Assert

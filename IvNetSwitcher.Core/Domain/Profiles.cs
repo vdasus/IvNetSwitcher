@@ -12,18 +12,12 @@ namespace IvNetSwitcher.Core.Domain
         private int _currentId;
         public IReadOnlyList<Profile> Items { get; }
 
-        public Profiles(INetService net, IReadOnlyList<ProfileDto> items, string salt)
+        public Profiles(INetService net, IEnumerable<ProfileDto> items, string salt)
         {
             _net = net;
             _salt = salt;
             Items = FillProfiles(items);
             _currentId = Items.FirstOrDefault(x => x.Active).Id;
-        }
-
-        private IReadOnlyList<Profile> FillProfiles(IEnumerable<ProfileDto> items)
-        {
-            return items.Select(zz =>
-                new Profile(_net, zz.Id, zz.Name, zz.User, zz.Password, zz.Domain, zz.Comment, zz.Active, _salt)).ToList();
         }
 
         public Profile GetCurrentProfile()
@@ -39,6 +33,12 @@ namespace IvNetSwitcher.Core.Domain
             _currentId = result.Id;
 
             return result;
+        }
+
+        private IReadOnlyList<Profile> FillProfiles(IEnumerable<ProfileDto> items)
+        {
+            return items.Select(zz =>
+                new Profile(_net, zz.Id, zz.Name, zz.User, zz.Password, zz.Domain, zz.Comment, zz.Active, _salt)).ToList();
         }
     }
 }
