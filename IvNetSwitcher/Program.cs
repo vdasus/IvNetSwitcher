@@ -123,7 +123,7 @@ namespace IvNetSwitcher
             var serializer = new XmlSerializer(typeof(List<ProfileDto>));
             using (TextReader reader = new StringReader(Settings.Default.Profiles))
             {
-                Profiles profiles = new Profiles(_net, (List<ProfileDto>)serializer.Deserialize(reader), Settings.Default.EncSalt);
+                _profiles = new Profiles(_net, (List<ProfileDto>)serializer.Deserialize(reader), Settings.Default.EncSalt);
             }
         }
 
