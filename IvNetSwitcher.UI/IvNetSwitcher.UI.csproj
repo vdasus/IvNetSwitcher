@@ -88,6 +88,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Shared\BoolToVisibleConverter.cs" />
+    <Compile Include="Shared\PropertyChangedBase.cs" />
+    <Compile Include="ViewModel\MainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelLocator.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -150,6 +153,7 @@
   <ItemGroup>
     <Resource Include="Resources\Entypo-license.txt" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>if $(ConfigurationName) == Release $(SolutionDir)vrinc.exe -r -m0001 -f$(ProjectDir)Properties\AssemblyInfo.cs -t"AssemblyVersion\(\"(\d+)\.(\d+)\.(\d+)\.(\d+)\"\)"</PreBuildEvent>
