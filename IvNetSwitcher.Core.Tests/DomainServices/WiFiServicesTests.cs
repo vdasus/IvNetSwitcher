@@ -14,7 +14,7 @@ namespace IvNetSwitcher.Core.Tests.DomainServices
         public void ctor_Created()
         {
             //Arrange
-            Action sut = () => { new WiFiServices(); };
+            Action sut = () => { new WiFiService(); };
             //Act
             //Assert
             sut.ShouldThrow<ApplicationException>();

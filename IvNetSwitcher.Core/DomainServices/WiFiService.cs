@@ -8,11 +8,11 @@ using SimpleWifi;
 
 namespace IvNetSwitcher.Core.DomainServices
 {
-    public class WiFiServices: IServices
+    public class WiFiService: INetService
     {
         private readonly Wifi _wifi;
 
-        public WiFiServices()
+        public WiFiService()
         {
             _wifi = new Wifi();
             _wifi.ConnectionStatusChanged += WifiConnectionStatusChanged;
@@ -75,16 +75,21 @@ namespace IvNetSwitcher.Core.DomainServices
             return Result.Ok();
         }
 
+        public Result CheckIsConnected()
+        {
+            return _wifi.ConnectionStatus == WifiStatus.Connected ? Result.Ok() : Result.Fail("Not connected");
+        }
+
         public void Disconnect()
         {
             _wifi.Disconnect();
         }
 
-        public Result<string> Status()
+        public string Status()
         {
-            return Result.Ok(_wifi.ConnectionStatus == WifiStatus.Connected
+            return _wifi.ConnectionStatus == WifiStatus.Connected
                 ? "Connected"
-                : "Not connected");
+                : "Not connected";
         }
 
         public Result<string> PrintProfileXml(int index)

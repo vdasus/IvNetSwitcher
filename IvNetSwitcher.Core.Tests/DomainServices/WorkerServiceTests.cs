@@ -1,10 +1,10 @@
 ﻿using System;
 using AutoFixture;
+using AutoFixture.Kernel;
 using FluentAssertions;
 using IvNetSwitcher.Core.Abstractions;
 using IvNetSwitcher.Core.Domain;
 using IvNetSwitcher.Core.DomainServices;
-using Moq;
 using Xunit;
 
 namespace IvNetSwitcher.Core.Tests.DomainServices
@@ -16,14 +16,18 @@ namespace IvNetSwitcher.Core.Tests.DomainServices
         {
             //Arrange
             Fixture fixture = new Fixture();
-            var wifisrv = new Mock<IServices>();
-            var ws = new WorkerService(wifisrv.Object);
+            fixture.Customizations.Add(
+                new TypeRelay(
+                    typeof(INetService),
+                    typeof(WiFiService)));
+
+            var ws = new WorkerService();
 
             //Act
             Action sut =
                 () =>
                 {
-                    ws.Run(fixture.Create<Profiles>(), new Uri("https://www.google.com"), 1, 1, "test", 1);
+                    ws.Run(fixture.Create<Profiles>(), new Uri("https://www.google.com"), 1, 1, 1);
                 };
             
             //Assert

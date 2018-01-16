@@ -1,36 +1,38 @@
-﻿using System;
-using System.Xml.Serialization;
+﻿using CSharpFunctionalExtensions;
+using IvNetSwitcher.Core.Abstractions;
 using IvNetSwitcher.Core.Shared;
 
 namespace IvNetSwitcher.Core.Domain
 {
-    [Serializable]
     public class Profile
     {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string User { get; set; }
-        public string Password { get; set; }
-        public string Domain { get; set; }
-        public string Comment { get; set; }
-        public bool Active { get; set; }
+        private readonly INetService _svc;
+        public int Id { get; }
+        public string Name { get; }
+        public string User { get; }
+        public string Password { get; }
+        public string Domain { get; }
+        public string Comment { get; }
+        public bool Active { get; }
 
-        public Profile() {}
+        public bool IsConnected => _svc.CheckIsConnected().IsSuccess;
 
-        public Profile(int id, string name, string user, string password, string domain, string comment, bool active)
+        public Profile(INetService svc, int id, string name, string user, string password, string domain, string comment, bool active, string salt)
         {
+            _svc = svc;
             Id = id;
             Name = name;
             User = user;
-            Password = password;
+            Password = Utils.GetDecryptedString(password, salt); ;
             Domain = domain;
             Comment = comment;
             Active = active;
         }
 
-        public string GetDecPwd(string salt)
+        public Result Connect()
         {
-            return Utils.GetDecryptedString(Password, salt);
+            _svc.Connect(Id, User, Password, Domain);
+            return _svc.CheckIsConnected();
         }
     }
 }
