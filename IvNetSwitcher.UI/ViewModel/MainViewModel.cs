@@ -1,6 +1,7 @@
 ﻿using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using IvNetSwitcher.UI.Shared;
+using NLog;
 
 namespace IvNetSwitcher.UI.ViewModel
 {
@@ -8,6 +9,8 @@ namespace IvNetSwitcher.UI.ViewModel
     public class MainViewModel
     {
         private const string CWAIT_MSG = "Wait, please...";
+        private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+
         public string Caption { get; } =
             $"IvNetSwitcher v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
 
@@ -27,6 +30,15 @@ namespace IvNetSwitcher.UI.ViewModel
             InitCommands();
         }
 
+        // TODO just temp snippets
+        /*
+                Messenger.Default.Send(new NotificationMessage(this,
+                    $"{_currentActiveWorkItemInfo.Id} CompletedWork update successful",
+                "ShowTooltip"));
+
+                Messenger.Default.Send(new NotificationMessage(this, rezAll.Error, "ShowErrorTooltip"));
+        */
+        
         private void InitCommands()
         {
             MinMaxCommand = new RelayCommand(() =>
@@ -46,6 +58,13 @@ namespace IvNetSwitcher.UI.ViewModel
             {
 
             });
+        }
+
+        private void InformAboutError(string errorString)
+        {
+            _log.Error(errorString);
+            Messenger.Default.Send(new NotificationMessage(this, errorString, "ShowErrorTooltip"));
+            StatusText = errorString;
         }
 
         private void SetBusyIndicator(bool isOn = true, string message = CWAIT_MSG)
