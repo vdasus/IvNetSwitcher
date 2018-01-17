@@ -5,6 +5,8 @@ using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using GalaSoft.MvvmLight.Messaging;
 using Hardcodet.Wpf.TaskbarNotification;
+using IvNetSwitcher.UI.Shared;
+using MahApps.Metro.Controls.Dialogs;
 
 namespace IvNetSwitcher.UI
 {
@@ -30,6 +32,15 @@ namespace IvNetSwitcher.UI
                     //https://www.codeproject.com/Articles/36468/WPF-NotifyIcon
                     NotifyIcon.ShowBalloonTip("gtemper", $"{msg.Target}", BalloonIcon.Info);
                     break;
+                case "ShowErrorTooltip":
+                    NotifyIcon.ShowBalloonTip("gtemper", $"{msg.Target}", BalloonIcon.Error);
+                    EnsureVisibleWindow();
+                    Dispatcher.InvokeOrExecute(async () =>
+                    {
+                        await this.ShowMessageAsync("gtemper", $"{msg.Target}");
+                    });
+                    break;
+
                 case "SetActiveTray":
                     NotifyIcon.IconSource = new BitmapImage(new Uri(
                         "pack://application:,,,/gtemper;component/Resources/IvNetSwitcher_active.ico",
@@ -56,6 +67,20 @@ namespace IvNetSwitcher.UI
                     Focus();
                     break;
             }
+        }
+
+        private void EnsureVisibleWindow()
+        {
+            if (!IsVisible)
+                Show();
+
+            if (WindowState == WindowState.Minimized)
+                WindowState = WindowState.Normal;
+
+            Activate();
+            Topmost = true;
+            Topmost = false;
+            Focus();
         }
 
         private void ScrollViewer_PreviewMouseWheel(object sender, MouseWheelEventArgs e)
@@ -92,17 +117,6 @@ namespace IvNetSwitcher.UI
 
         private void MenuItem_OnClick(object sender, RoutedEventArgs e)
         {
-            try
-            {
-                /*Settings.Default.WinWidth = Width;
-                Settings.Default.WinHeight = Height;
-                Settings.Default.Save();*/
-            }
-            catch
-            {
-                //
-            }
-
             _mIsExplicitClose = true;
             Close();
         }

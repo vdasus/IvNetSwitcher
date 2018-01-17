@@ -14,7 +14,7 @@
                       UseLayoutRounding ="True"
                       MinWidth="400"
                       MinHeight="200"
-                      Title="IvNetSwitcher" Height="350" Width="525"
+                      Title="{Binding Caption, Mode=OneTime}" Height="350" Width="525"
                       DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
@@ -57,7 +57,7 @@
         <tb:TaskbarIcon x:Name="NotifyIcon"
                         IconSource="{StaticResource AppIcon}"
                         Visibility="Visible"
-                        ToolTipText="{Binding ActiveValue.Title, Mode=OneWay}"
+                        ToolTipText="{Binding Caption, Mode=OneTime}"
                         MenuActivation="RightClick"
                         PopupActivation="LeftClick"
                         DoubleClickCommand="{Binding MinMaxCommand}" >
