@@ -5,15 +5,92 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-        xmlns:local="clr-namespace:IvNetSwitcher.UI" mc:Ignorable="d"
+        xmlns:local="clr-namespace:IvNetSwitcher.UI"
+        xmlns:tb="http://www.hardcodet.net/taskbar"
+        xmlns:wpf="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
+        mc:Ignorable="d"
                       GlowBrush="DarkSlateGray"
                       WindowTransitionsEnabled="True"
                       UseLayoutRounding ="True"
                       MinWidth="400"
                       MinHeight="200"
-                      Title="MainWindow" Height="350" Width="525"
+                      Title="{Binding Caption, Mode=OneTime}" Height="350" Width="525"
                       DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
-    <Grid>
+    <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <Button Command="{Binding Path=DataContext.HelpCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_book_perspective_help}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Help" />
+                </StackPanel>
+            </Button>
+            <Button Command="{Binding Path=DataContext.RefreshCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_refresh}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Refresh" />
+                </StackPanel>
+            </Button>
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+    <DockPanel LastChildFill="True">
+        <tb:TaskbarIcon x:Name="NotifyIcon"
+                        IconSource="{StaticResource AppIcon}"
+                        Visibility="Visible"
+                        ToolTipText="{Binding Caption, Mode=OneTime}"
+                        MenuActivation="RightClick"
+                        PopupActivation="LeftClick"
+                        DoubleClickCommand="{Binding MinMaxCommand}" >
+            <tb:TaskbarIcon.TrayPopup>
+                <Border Background="White"
+                            BorderBrush="Orange"
+                            BorderThickness="2"
+                            CornerRadius="0"
+                            Width="750"
+                            Height="Auto">
 
-    </Grid>
+                </Border>
+            </tb:TaskbarIcon.TrayPopup>
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu Background="BlanchedAlmond">
+                    <MenuItem Header="Exit" Click="MenuItem_OnClick" />
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
+        <StatusBar DockPanel.Dock="Bottom">
+            <StatusBarItem Margin="15px 0 0 0">
+                <wpf:LoadingIndicator Margin="4" VerticalAlignment="Top" Visibility="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToVis}}" IsActive="{Binding IsBusy}" Foreground="OrangeRed" Style="{DynamicResource LoadingIndicatorArcsStyleKey}" />
+            </StatusBarItem>
+            <StatusBarItem Margin="15px 0 0 0">
+                <Label Content="{Binding StatusText}" />
+            </StatusBarItem>
+        </StatusBar>
+        <TabControl DockPanel.Dock="Top">
+            <TabItem Header="Networks" IsSelected="True" Background="Transparent">
+                TETETE
+            </TabItem>
+            <TabItem Header="Register" Background="Transparent">
+                NUNUNU
+            </TabItem>
+            <TabItem Header="Settings" Background="Transparent">
+                NUNUNU
+            </TabItem>
+            <TabItem Header="Help" Background="Transparent">
+                NUNUNU
+            </TabItem>
+        </TabControl>
+
+
+
+        <!--<ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"></ScrollViewer>-->
+    </DockPanel>
 </controls:MetroWindow>

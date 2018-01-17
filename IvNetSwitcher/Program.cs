@@ -120,11 +120,8 @@ namespace IvNetSwitcher
 
         private static void LoadProfiles()
         {
-            var serializer = new XmlSerializer(typeof(List<ProfileDto>));
-            using (TextReader reader = new StringReader(Settings.Default.Profiles))
-            {
-                _profiles = new Profiles(_net, (List<ProfileDto>)serializer.Deserialize(reader), Settings.Default.EncSalt);
-            }
+            var tmpProfiles = Settings.Default.Profiles.XmlDeserializeFromString<List<ProfileDto>>();
+            _profiles = new Profiles(_net, tmpProfiles, Settings.Default.EncSalt);
         }
 
         private static void ConfigurationRootInit()

@@ -18,7 +18,7 @@ namespace IvNetSwitcher.Core.DomainServices
             _wifi.ConnectionStatusChanged += WifiConnectionStatusChanged;
 
             // TODO don't forget to uncomment
-            if (_wifi.NoWifiAvailable) throw new ApplicationException("WiFi not available");
+            //if (_wifi.NoWifiAvailable) throw new ApplicationException("WiFi not available");
         }
 
         #region Implementation of IServices

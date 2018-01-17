@@ -15,12 +15,17 @@
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/Blue.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Accents/BaseLight.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedTabControl.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.AnimatedSingleRowTabControl.xaml" />-->
                 <ResourceDictionary Source="pack://application:,,,/LoadingIndicators.WPF;component/Styles/loadingarcs.xaml" />
                 <ResourceDictionary Source="/Resources/Icons.xaml" />
             </ResourceDictionary.MergedDictionaries>
             
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:IvNetSwitcher.UI.ViewModel" />
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
+
+            <BitmapImage x:Key="AppIcon" UriSource="pack://application:,,,/Resources/IvNetSwitcher.ico" />
+            <BitmapImage x:Key="AppIconActive" UriSource="pack://application:,,,/Resources/IvNetSwitcher_active.ico" />
+
 
             <!--<BitmapImage x:Key="AppIcon" UriSource="pack://application:,,,/Resources/IvNetSwitcher.ico" />
             <BitmapImage x:Key="AppIconActive" UriSource="pack://application:,,,/Resources/IvNetSwitcher_active.ico" />
