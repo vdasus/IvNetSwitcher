@@ -77,16 +77,31 @@
             </ContextMenu>
         </tb:TaskbarIcon.ContextMenu>
     </tb:TaskbarIcon>
-    
         <StatusBar DockPanel.Dock="Bottom">
-        <StatusBarItem Margin="15px 0 0 0">
-            <wpf:LoadingIndicator Margin="4" VerticalAlignment="Top" Visibility="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToVis}}" IsActive="{Binding IsBusy}" Foreground="OrangeRed" Style="{DynamicResource LoadingIndicatorArcsStyleKey}" />
-        </StatusBarItem>
-        <StatusBarItem Margin="15px 0 0 0">
-            <Label Content="{Binding StatusText}" />
-        </StatusBarItem>
-    </StatusBar>
+            <StatusBarItem Margin="15px 0 0 0">
+                <wpf:LoadingIndicator Margin="4" VerticalAlignment="Top" Visibility="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToVis}}" IsActive="{Binding IsBusy}" Foreground="OrangeRed" Style="{DynamicResource LoadingIndicatorArcsStyleKey}" />
+            </StatusBarItem>
+            <StatusBarItem Margin="15px 0 0 0">
+                <Label Content="{Binding StatusText}" />
+            </StatusBarItem>
+        </StatusBar>
+        <TabControl DockPanel.Dock="Top">
+            <TabItem Header="Networks" IsSelected="True" Background="Transparent">
+                TETETE
+            </TabItem>
+            <TabItem Header="Register" Background="Transparent">
+                NUNUNU
+            </TabItem>
+            <TabItem Header="Settings" Background="Transparent">
+                NUNUNU
+            </TabItem>
+            <TabItem Header="Help" Background="Transparent">
+                NUNUNU
+            </TabItem>
+        </TabControl>
+        
 
-        <ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"></ScrollViewer>
+        
+        <!--<ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"></ScrollViewer>-->
     </DockPanel>
 </controls:MetroWindow>
