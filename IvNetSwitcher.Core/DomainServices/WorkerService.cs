@@ -13,14 +13,16 @@ namespace IvNetSwitcher.Core.DomainServices
     {
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         
+        //Test function
         public void Run(Profiles profiles, Uri hostToPing, int delay, int retry, int times = 0)
         {
             // TODO code just to check
             int i = 0;
             while (times == 0 || i < times) 
             {
-                _log.Trace($"ping to {profiles.GetCurrentProfile().Name} successful");
+                _log.Trace($"ping to {profiles.GetCurrentProfile().Name}");
                 var rez = MakePing(hostToPing);
+                _log.Trace("ping successful");
 
                 if (rez.IsFailure)
                 {

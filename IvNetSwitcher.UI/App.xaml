@@ -22,6 +22,10 @@
             <vm:ViewModelLocator x:Key="Locator" d:IsDataSource="True" xmlns:vm="clr-namespace:IvNetSwitcher.UI.ViewModel" />
             <BooleanToVisibilityConverter x:Key="BoolToVis" />
 
+            <BitmapImage x:Key="AppIcon" UriSource="pack://application:,,,/Resources/IvNetSwitcher.ico" />
+            <BitmapImage x:Key="AppIconActive" UriSource="pack://application:,,,/Resources/IvNetSwitcher_active.ico" />
+
+
             <!--<BitmapImage x:Key="AppIcon" UriSource="pack://application:,,,/Resources/IvNetSwitcher.ico" />
             <BitmapImage x:Key="AppIconActive" UriSource="pack://application:,,,/Resources/IvNetSwitcher_active.ico" />
             <DrawingImage x:Key="StartImage">
