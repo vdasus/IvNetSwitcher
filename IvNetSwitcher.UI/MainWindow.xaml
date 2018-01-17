@@ -18,17 +18,6 @@
                       DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
-            <Button Command="{Binding Path=DataContext.SettingsCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
-                <StackPanel Orientation="Horizontal">
-                    <Rectangle Width="20" Height="20"
-                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
-                        <Rectangle.OpacityMask>
-                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_settings}" />
-                        </Rectangle.OpacityMask>
-                    </Rectangle>
-                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Settings" />
-                </StackPanel>
-            </Button>
             <Button Command="{Binding Path=DataContext.HelpCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20"
@@ -37,7 +26,7 @@
                             <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_book_perspective_help}" />
                         </Rectangle.OpacityMask>
                     </Rectangle>
-                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="What's new" />
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Help" />
                 </StackPanel>
             </Button>
             <Button Command="{Binding Path=DataContext.RefreshCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
@@ -61,22 +50,22 @@
                         MenuActivation="RightClick"
                         PopupActivation="LeftClick"
                         DoubleClickCommand="{Binding MinMaxCommand}" >
-        <tb:TaskbarIcon.TrayPopup>
-            <Border Background="White"
+            <tb:TaskbarIcon.TrayPopup>
+                <Border Background="White"
                             BorderBrush="Orange"
                             BorderThickness="2"
                             CornerRadius="0"
                             Width="750"
                             Height="Auto">
-                
-            </Border>
-        </tb:TaskbarIcon.TrayPopup>
-        <tb:TaskbarIcon.ContextMenu>
-            <ContextMenu Background="BlanchedAlmond">
-                <MenuItem Header="Exit" Click="MenuItem_OnClick" />
-            </ContextMenu>
-        </tb:TaskbarIcon.ContextMenu>
-    </tb:TaskbarIcon>
+
+                </Border>
+            </tb:TaskbarIcon.TrayPopup>
+            <tb:TaskbarIcon.ContextMenu>
+                <ContextMenu Background="BlanchedAlmond">
+                    <MenuItem Header="Exit" Click="MenuItem_OnClick" />
+                </ContextMenu>
+            </tb:TaskbarIcon.ContextMenu>
+        </tb:TaskbarIcon>
         <StatusBar DockPanel.Dock="Bottom">
             <StatusBarItem Margin="15px 0 0 0">
                 <wpf:LoadingIndicator Margin="4" VerticalAlignment="Top" Visibility="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToVis}}" IsActive="{Binding IsBusy}" Foreground="OrangeRed" Style="{DynamicResource LoadingIndicatorArcsStyleKey}" />
@@ -99,9 +88,9 @@
                 NUNUNU
             </TabItem>
         </TabControl>
-        
 
-        
+
+
         <!--<ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"></ScrollViewer>-->
     </DockPanel>
 </controls:MetroWindow>
