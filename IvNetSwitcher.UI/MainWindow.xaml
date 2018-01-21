@@ -76,10 +76,31 @@
         </StatusBar>
         <TabControl DockPanel.Dock="Top">
             <TabItem Header="Networks" IsSelected="True" Background="Transparent">
-                TETETE
+                <StackPanel Orientation="Horizontal">
+                <controls:Tile Title="Home" 
+                               Width="Auto"
+                               Height="100" 
+                               Count="1"
+                               KeepDragging="True" 
+                               VerticalTitleAlignment="Top"
+                               HorizontalTitleAlignment="Stretch"/>
+                <controls:Tile Title="PhoneNumberOne" 
+                               Width="Auto"
+                               Height="100" 
+                               Count="2"
+                               VerticalTitleAlignment="Top"
+                               HorizontalTitleAlignment="Left"
+                               KeepDragging="True" />
+                </StackPanel>
             </TabItem>
             <TabItem Header="Register" Background="Transparent">
-                NUNUNU
+                <controls:Tile Title="PhoneNumberOne" 
+                               Width="Auto"
+                               Height="100" 
+                               Count="2"
+                               VerticalTitleAlignment="Top"
+                               HorizontalTitleAlignment="Left"
+                               KeepDragging="True" />
             </TabItem>
             <TabItem Header="Settings" Background="Transparent">
                 NUNUNU

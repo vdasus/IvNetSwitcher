@@ -13,18 +13,20 @@ namespace IvNetSwitcher.UI.ViewModel
 
         public string Caption { get; } =
             $"IvNetSwitcher v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
-
-
+        
         public bool IsBusy { get; set; }
+
+        #region Commands region
 
         public RelayCommand SettingsCommand { get; set; }
         public RelayCommand HelpCommand { get; set; }
         public RelayCommand RefreshCommand { get; set; }
         public RelayCommand MinMaxCommand { get; set; }
 
+        #endregion
+
         public string StatusText { get; private set; }
         
-
         public MainViewModel()
         {
             InitCommands();

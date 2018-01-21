@@ -22,5 +22,62 @@ namespace IvNetSwitcher.UI.Properties {
                 return defaultInstance;
             }
         }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("0")]
+        public string Delay {
+            get {
+                return ((string)(this["Delay"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("http://google.com")]
+        public string HostToPing {
+            get {
+                return ((string)(this["HostToPing"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("261A2220-C66E-496E-9DC0-5FF5174B7711")]
+        public string EncSalt {
+            get {
+                return ((string)(this["EncSalt"]));
+            }
+        }
+        
+        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute(@"
+          <ArrayOfProfileDto xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
+            <ProfileDto>
+              <Id>1</Id>
+              <Name>name</Name>
+              <User>user</User>
+              <Password>IbP8X/dRF+c3YeCDtBg4d7ZzhQvhYDIZirJ9gAt/eoXPgH3QOWGWpeG65ZfrzPb3d9K2sY17bojnsYck3gaWYD+F+vq4jrVqvrh0fei3l5gWkGiBjP0xNXGw7Nm3ds/Y</Password>
+              <Domain>domain</Domain>
+              <Comment>comment</Comment>
+              <Active>false</Active>
+            </ProfileDto>
+            <ProfileDto>
+              <Id>2</Id>
+              <Name>name2</Name>
+              <User>user2</User>
+              <Password>IbP8X/dRF+c3YeCDtBg4d7ZzhQvhYDIZirJ9gAt/eoXPgH3QOWGWpeG65ZfrzPb3d9K2sY17bojnsYck3gaWYD+F+vq4jrVqvrh0fei3l5gWkGiBjP0xNXGw7Nm3ds/Y</Password>
+              <Domain>domain2</Domain>
+              <Comment>comment2</Comment>
+              <Active>true</Active>
+            </ProfileDto>
+          </ArrayOfProfileDto>
+        ")]
+        public string Profiles {
+            get {
+                return ((string)(this["Profiles"]));
+            }
+        }
     }
 }
