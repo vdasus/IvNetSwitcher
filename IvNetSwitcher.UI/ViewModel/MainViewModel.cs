@@ -1,15 +1,23 @@
-﻿using GalaSoft.MvvmLight.Command;
+﻿using System.Collections.Generic;
+using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
+using IvNetSwitcher.Core.Abstractions;
+using IvNetSwitcher.Core.Domain;
+using IvNetSwitcher.Core.Dto;
+using IvNetSwitcher.Core.Shared;
+using IvNetSwitcher.UI.Properties;
 using IvNetSwitcher.UI.Shared;
 using NLog;
 
 namespace IvNetSwitcher.UI.ViewModel
 {
     [Magic]
-    public class MainViewModel
+    public class MainViewModel: PropertyChangedBase
     {
         private const string CWAIT_MSG = "Wait, please...";
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
+
+        private readonly INetService _net;
 
         public string Caption { get; } =
             $"IvNetSwitcher v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
@@ -18,18 +26,28 @@ namespace IvNetSwitcher.UI.ViewModel
 
         #region Commands region
 
-        public RelayCommand SettingsCommand { get; set; }
+        public RelayCommand MinMaxCommand { get; set; }
         public RelayCommand HelpCommand { get; set; }
         public RelayCommand RefreshCommand { get; set; }
-        public RelayCommand MinMaxCommand { get; set; }
+        public RelayCommand SettingsCommand { get; set; }
 
         #endregion
 
         public string StatusText { get; private set; }
+
+        public int SelectedTabIndex { get; set; }
+        public bool IsSettingsOpened { get; set; }
         
-        public MainViewModel()
+        public Profiles RegisteredNets { get; set; }
+        public Profiles AvailableNets { get; set; }
+        
+        public MainViewModel(INetService net)
         {
+            _net = net;
             InitCommands();
+
+            var tmpProfiles = Settings.Default.Profiles.XmlDeserializeFromString<List<ProfileDto>>();
+            RegisteredNets = new Profiles(_net, tmpProfiles, Settings.Default.EncSalt);
         }
 
         // TODO just temp snippets
@@ -48,18 +66,17 @@ namespace IvNetSwitcher.UI.ViewModel
                 Messenger.Default.Send(new NotificationMessage("ToggleWindow"));
             });
 
-            SettingsCommand = new RelayCommand(() =>
-            {
-
-            });
             HelpCommand = new RelayCommand(() =>
             {
-
+                SelectedTabIndex = 2;
             });
+
             RefreshCommand = new RelayCommand(() =>
             {
 
             });
+
+            SettingsCommand = new RelayCommand(() => { IsSettingsOpened = !IsSettingsOpened; });
         }
 
         private void InformAboutError(string errorString)

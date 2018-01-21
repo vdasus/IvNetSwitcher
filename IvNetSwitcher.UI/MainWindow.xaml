@@ -12,12 +12,23 @@
                       GlowBrush="DarkSlateGray"
                       WindowTransitionsEnabled="True"
                       UseLayoutRounding ="True"
-                      MinWidth="400"
+                      MinWidth="500"
                       MinHeight="200"
                       Title="{Binding Caption, Mode=OneTime}" Height="350" Width="525"
                       DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
+            <Button Command="{Binding Path=DataContext.SettingsCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_settings}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Settings" />
+                </StackPanel>
+            </Button>
             <Button Command="{Binding Path=DataContext.HelpCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20"
@@ -74,24 +85,22 @@
                 <Label Content="{Binding StatusText}" />
             </StatusBarItem>
         </StatusBar>
-        <TabControl DockPanel.Dock="Top">
+        <TabControl DockPanel.Dock="Top" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
             <TabItem Header="Networks" IsSelected="True" Background="Transparent">
-                <StackPanel Orientation="Horizontal">
-                <controls:Tile Title="Home" 
-                               Width="Auto"
-                               Height="100" 
-                               Count="1"
-                               KeepDragging="True" 
-                               VerticalTitleAlignment="Top"
-                               HorizontalTitleAlignment="Stretch"/>
-                <controls:Tile Title="PhoneNumberOne" 
-                               Width="Auto"
-                               Height="100" 
-                               Count="2"
-                               VerticalTitleAlignment="Top"
-                               HorizontalTitleAlignment="Left"
-                               KeepDragging="True" />
-                </StackPanel>
+                <Grid>
+                    <ListView Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <controls:Tile Title="{Binding Name, Mode=OneTime }" 
+                                                   Width="Auto"
+                                                   Height="100" 
+                                                   Count="{Binding Active}"
+                                                   KeepDragging="True" 
+                                                   VerticalTitleAlignment="Top" />
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </Grid>
             </TabItem>
             <TabItem Header="Register" Background="Transparent">
                 <controls:Tile Title="PhoneNumberOne" 
@@ -102,16 +111,18 @@
                                HorizontalTitleAlignment="Left"
                                KeepDragging="True" />
             </TabItem>
-            <TabItem Header="Settings" Background="Transparent">
-                NUNUNU
-            </TabItem>
             <TabItem Header="Help" Background="Transparent">
                 NUNUNU
             </TabItem>
         </TabControl>
 
-
-
         <!--<ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"></ScrollViewer>-->
     </DockPanel>
+    <controls:MetroWindow.Flyouts>
+        <controls:FlyoutsControl>
+            <controls:Flyout Header="Settings" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsSettingsOpened}">
+                <!-- Your custom content here -->
+            </controls:Flyout>
+        </controls:FlyoutsControl>
+    </controls:MetroWindow.Flyouts>
 </controls:MetroWindow>
