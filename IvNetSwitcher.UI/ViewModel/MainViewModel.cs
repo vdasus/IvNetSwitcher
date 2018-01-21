@@ -45,7 +45,11 @@ namespace IvNetSwitcher.UI.ViewModel
         {
             _net = net;
             InitCommands();
+            LoadData();
+        }
 
+        private void LoadData()
+        {
             var tmpProfiles = Settings.Default.Profiles.XmlDeserializeFromString<List<ProfileDto>>();
             RegisteredNets = new Profiles(_net, tmpProfiles, Settings.Default.EncSalt);
         }
