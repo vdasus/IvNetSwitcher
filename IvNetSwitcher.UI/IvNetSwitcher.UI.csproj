@@ -168,6 +168,19 @@
     <Resource Include="Resources\IvNetSwitcher.ico" />
     <Resource Include="Resources\IvNetSwitcher_active.ico" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Add-New.png" />
+    <Resource Include="Resources\Arrowhead-Right.png" />
+    <Resource Include="Resources\Connector-02.png" />
+    <Resource Include="Resources\Link - 01.png" />
+    <Resource Include="Resources\Link - 02.png" />
+    <Resource Include="Resources\Media Next.png" />
+    <Resource Include="Resources\Network-Signal.png" />
+    <Resource Include="Resources\Register by Device.png" />
+    <Resource Include="Resources\Settings-02.png" />
+    <Resource Include="Resources\Trash can - 04.png" />
+    <Resource Include="Resources\Wifi-01.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>if $(ConfigurationName) == Release $(SolutionDir)vrinc.exe -r -m0001 -f$(ProjectDir)Properties\AssemblyInfo.cs -t"AssemblyVersion\(\"(\d+)\.(\d+)\.(\d+)\.(\d+)\"\)"</PreBuildEvent>
