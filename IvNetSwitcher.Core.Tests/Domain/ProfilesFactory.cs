@@ -23,7 +23,7 @@ namespace IvNetSwitcher.Core.Tests.Domain
             fixture.Customizations.Add(
                 new TypeRelay(
                     typeof(INetService),
-                    typeof(WiFiService)));
+                    typeof(FakeService)));
 
             return new Profiles(
                 new Mock<INetService>().Object,
