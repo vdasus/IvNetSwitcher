@@ -26,10 +26,18 @@
             <BitmapImage x:Key="AppIcon" UriSource="pack://application:,,,/Resources/IvNetSwitcher.ico" />
             <BitmapImage x:Key="AppIconActive" UriSource="pack://application:,,,/Resources/IvNetSwitcher_active.ico" />
 
-
-            <!--<BitmapImage x:Key="AppIcon" UriSource="pack://application:,,,/Resources/IvNetSwitcher.ico" />
-            <BitmapImage x:Key="AppIconActive" UriSource="pack://application:,,,/Resources/IvNetSwitcher_active.ico" />
-            <DrawingImage x:Key="StartImage">
+            <DrawingImage x:Key="AddNewPicture">
+                <DrawingImage.Drawing>
+                    <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Add-New.png" />
+                </DrawingImage.Drawing>
+            </DrawingImage>
+            <DrawingImage x:Key="EditPicture">
+                <DrawingImage.Drawing>
+                    <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Register by Device.png" />
+                </DrawingImage.Drawing>
+            </DrawingImage>
+            
+            <!--<DrawingImage x:Key="StartImage">
                 <DrawingImage.Drawing>
                     <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Play.png" />
                 </DrawingImage.Drawing>

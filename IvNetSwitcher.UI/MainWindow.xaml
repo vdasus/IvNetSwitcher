@@ -103,13 +103,37 @@
                 </Grid>
             </TabItem>
             <TabItem Header="Register" Background="Transparent">
-                <controls:Tile Title="PhoneNumberOne" 
-                               Width="Auto"
-                               Height="100" 
-                               Count="2"
-                               VerticalTitleAlignment="Top"
-                               HorizontalTitleAlignment="Left"
-                               KeepDragging="True" />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
+                    <ToolBarTray Orientation="Horizontal">
+                        <ToolBar OverflowMode="Never" Background="Transparent">
+                            <ToolBarPanel Background="Transparent">
+                                <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Add new">
+                                    <Image Source="{DynamicResource AddNewPicture}" />
+                                </Button>
+                                <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
+                                    <Image Source="{DynamicResource EditPicture}" />
+                                </Button>
+                            </ToolBarPanel>
+                        </ToolBar>
+                    </ToolBarTray>
+                    <controls:Tile Grid.Row="1" Grid.Column="0"
+                                   Title="PhoneNumberOne" 
+                                       Width="Auto"
+                                       Height="100" 
+                                       Count="2"
+                                       VerticalTitleAlignment="Top"
+                                       HorizontalTitleAlignment="Left"
+                                       KeepDragging="True" />
+                </Grid>
             </TabItem>
             <TabItem Header="Help" Background="Transparent">
                 NUNUNU
@@ -126,3 +150,4 @@
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
 </controls:MetroWindow>
+
