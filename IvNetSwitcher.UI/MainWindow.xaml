@@ -105,14 +105,16 @@
             <TabItem Header="Register" Background="Transparent">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
-                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
                     </Grid.ColumnDefinitions>
+                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" 
+                                 Orientation="Horizontal">
                     <ToolBarTray Orientation="Horizontal">
                         <ToolBar OverflowMode="Never" Background="Transparent">
                             <ToolBarPanel Background="Transparent">
@@ -125,14 +127,23 @@
                             </ToolBarPanel>
                         </ToolBar>
                     </ToolBarTray>
-                    <controls:Tile Grid.Row="1" Grid.Column="0"
-                                   Title="PhoneNumberOne" 
+                    </StackPanel>
+                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
+                    <controls:Tile Title="PhoneNumberOne" 
                                        Width="Auto"
                                        Height="100" 
                                        Count="2"
                                        VerticalTitleAlignment="Top"
                                        HorizontalTitleAlignment="Left"
                                        KeepDragging="True" />
+                    <controls:Tile Title="PhoneNumberOne" 
+                                       Width="Auto"
+                                       Height="100" 
+                                       Count="2"
+                                       VerticalTitleAlignment="Top"
+                                       HorizontalTitleAlignment="Left"
+                                       KeepDragging="True" />
+                        </StackPanel>
                 </Grid>
             </TabItem>
             <TabItem Header="Help" Background="Transparent">

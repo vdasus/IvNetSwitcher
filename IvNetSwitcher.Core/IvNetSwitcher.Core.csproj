@@ -1,5 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
-
+<Project Sdk="Microsoft.NET.Sdk" ToolsVersion="15.0">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Copyright>vdasus.com</Copyright>
@@ -7,12 +6,15 @@
     <Company>vdasus.com</Company>
     <AssemblyVersion>1.0.0.18</AssemblyVersion>
     <FileVersion>1.0.0.18</FileVersion>
+    <FileUpgradeFlags>
+    </FileUpgradeFlags>
+    <UpgradeBackupLocation>
+    </UpgradeBackupLocation>
+    <OldToolsVersion>2.0</OldToolsVersion>
   </PropertyGroup>
-
   <ItemGroup>
     <None Remove="IvNetSwitcher.Core.~v" />
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Include="CSharpFunctionalExtensions" Version="1.8.1" />
     <PackageReference Include="DryIoc.dll" Version="2.12.7" />
@@ -20,19 +22,15 @@
     <PackageReference Include="SimpleWifi" Version="1.0.0" />
     <PackageReference Include="System.Net.Ping" Version="4.3.0" />
   </ItemGroup>
-
   <ItemGroup>
     <Reference Include="DryIoc">
       <HintPath>..\packages\DryIoc.dll.2.12.6\lib\net45\DryIoc.dll</HintPath>
     </Reference>
   </ItemGroup>
-
   <ItemGroup>
     <PackageReference Update="NETStandard.Library" Version="2.0.1" />
   </ItemGroup>
-
   <Target Name="PreBuild" BeforeTargets="PreBuildEvent">
     <Exec Command="if $(ConfigurationName) == Release $(SolutionDir)vrinc.exe -r -m0001 -f$(ProjectPath) -t&quot;Version&gt;(\d+)\.(\d+)\.(\d+)\.(\d+)&lt;/&quot;" />
   </Target>
-
 </Project>
