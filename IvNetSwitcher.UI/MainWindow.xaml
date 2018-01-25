@@ -90,26 +90,35 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition />
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
-                        <ListView BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <controls:Tile Title="{Binding Name, Mode=OneTime }" 
+                    <ToolBarTray Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Orientation="Horizontal">
+                        <ToolBar OverflowMode="Never" Background="Transparent">
+                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Add new">
+                                <Image Source="{DynamicResource PlayPicture}" />
+                            </Button>
+                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
+                                <Image Source="{DynamicResource NexPlayPicture}" />
+                            </Button>
+                        </ToolBar>
+                    </ToolBarTray>
+                    <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <controls:Tile Title="{Binding Name, Mode=OneTime }" 
                                                    Width="Auto"
                                                    Height="100" 
                                                    Count="{Binding Active}"
                                                    KeepDragging="True" 
                                                    VerticalTitleAlignment="Top" />
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </ScrollViewer>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
                 </Grid>
             </TabItem>
             <TabItem Header="Register" Background="Transparent">
@@ -123,19 +132,16 @@
                         <ColumnDefinition />
                         <ColumnDefinition />
                     </Grid.ColumnDefinitions>
-                    <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" 
-                                 Orientation="Horizontal">
-                        <ToolBarTray Orientation="Horizontal">
-                            <ToolBar OverflowMode="Never" Background="Transparent">
-                                <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Add new">
-                                    <Image Source="{DynamicResource AddNewPicture}" />
-                                </Button>
-                                <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
-                                    <Image Source="{DynamicResource EditPicture}" />
-                                </Button>
-                            </ToolBar>
-                        </ToolBarTray>
-                    </StackPanel>
+                    <ToolBarTray Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Orientation="Horizontal">
+                        <ToolBar OverflowMode="Never" Background="Transparent">
+                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Add new">
+                                <Image Source="{DynamicResource AddNewPicture}" />
+                            </Button>
+                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
+                                <Image Source="{DynamicResource EditPicture}" />
+                            </Button>
+                        </ToolBar>
+                    </ToolBarTray>
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
                         <StackPanel  Orientation="Horizontal">
                             <controls:Tile Title="PhoneNumberOne" 
