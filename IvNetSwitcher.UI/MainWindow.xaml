@@ -12,8 +12,8 @@
                       GlowBrush="DarkSlateGray"
                       WindowTransitionsEnabled="True"
                       UseLayoutRounding ="True"
-                      MinWidth="500"
-                      MinHeight="200"
+                      MinWidth="600"
+                      MinHeight="400"
                       Title="{Binding Caption, Mode=OneTime}" Height="350" Width="525"
                       DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <controls:MetroWindow.RightWindowCommands>
@@ -88,24 +88,34 @@
         <TabControl DockPanel.Dock="Top" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
             <TabItem Header="Networks" IsSelected="True" Background="Transparent">
                 <Grid>
-                    <ListView Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <controls:Tile Title="{Binding Name, Mode=OneTime }" 
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                        <ColumnDefinition />
+                    </Grid.ColumnDefinitions>
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3">
+                        <ListView BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <controls:Tile Title="{Binding Name, Mode=OneTime }" 
                                                    Width="Auto"
                                                    Height="100" 
                                                    Count="{Binding Active}"
                                                    KeepDragging="True" 
                                                    VerticalTitleAlignment="Top" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </ScrollViewer>
                 </Grid>
             </TabItem>
             <TabItem Header="Register" Background="Transparent">
                 <Grid>
                     <Grid.RowDefinitions>
-                        <RowDefinition />
+                        <RowDefinition Height="Auto" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -115,28 +125,41 @@
                     </Grid.ColumnDefinitions>
                     <StackPanel Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3" 
                                  Orientation="Horizontal">
-                    <ToolBarTray Orientation="Horizontal">
-                        <ToolBar OverflowMode="Never" Background="Transparent">
-                            <ToolBarPanel Background="Transparent">
+                        <ToolBarTray Orientation="Horizontal">
+                            <ToolBar OverflowMode="Never" Background="Transparent">
                                 <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Add new">
                                     <Image Source="{DynamicResource AddNewPicture}" />
                                 </Button>
                                 <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
                                     <Image Source="{DynamicResource EditPicture}" />
                                 </Button>
-                            </ToolBarPanel>
-                        </ToolBar>
-                    </ToolBarTray>
+                            </ToolBar>
+                        </ToolBarTray>
                     </StackPanel>
-                    <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" Orientation="Horizontal">
-                    <controls:Tile Title="PhoneNumberOne" 
+                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
+                        <StackPanel  Orientation="Horizontal">
+                            <controls:Tile Title="PhoneNumberOne" 
                                        Width="Auto"
                                        Height="100" 
                                        Count="2"
                                        VerticalTitleAlignment="Top"
                                        HorizontalTitleAlignment="Left"
                                        KeepDragging="True" />
-                    <controls:Tile Title="PhoneNumberOne" 
+                            <controls:Tile Title="PhoneNumberOne" 
+                                       Width="Auto"
+                                       Height="100" 
+                                       Count="2"
+                                       VerticalTitleAlignment="Top"
+                                       HorizontalTitleAlignment="Left"
+                                       KeepDragging="True" />
+                            <controls:Tile Title="PhoneNumberOne" 
+                                       Width="Auto"
+                                       Height="100" 
+                                       Count="2"
+                                       VerticalTitleAlignment="Top"
+                                       HorizontalTitleAlignment="Left"
+                                       KeepDragging="True" />
+                            <controls:Tile Title="PhoneNumberOne" 
                                        Width="Auto"
                                        Height="100" 
                                        Count="2"
@@ -144,6 +167,7 @@
                                        HorizontalTitleAlignment="Left"
                                        KeepDragging="True" />
                         </StackPanel>
+                    </ScrollViewer>
                 </Grid>
             </TabItem>
             <TabItem Header="Help" Background="Transparent">
