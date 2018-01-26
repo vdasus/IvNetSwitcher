@@ -1,5 +1,6 @@
 ﻿using DryIoc;
 using IvNetSwitcher.Core.Abstractions;
+using IvNetSwitcher.Core.AppServices;
 using IvNetSwitcher.Core.DomainServices;
 
 namespace IvNetSwitcher.Core
@@ -12,6 +13,7 @@ namespace IvNetSwitcher.Core
         {
             Container = new Container();
             Container.Register<IWorkerService, WorkerService>(Reuse.Singleton);
+            Container.Register<IAppService, AppService>(Reuse.Singleton);
 #if DEBUG
             Container.Register<INetService, FakeService>(Reuse.Transient);
 #else

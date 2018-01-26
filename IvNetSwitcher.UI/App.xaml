@@ -36,6 +36,11 @@
                     <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Register by Device.png" />
                 </DrawingImage.Drawing>
             </DrawingImage>
+            <DrawingImage x:Key="DeletePicture">
+                <DrawingImage.Drawing>
+                    <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Trash can - 04.png" />
+                </DrawingImage.Drawing>
+            </DrawingImage>
 
             <DrawingImage x:Key="PlayPicture">
                 <DrawingImage.Drawing>

@@ -1,0 +1,32 @@
+﻿using CSharpFunctionalExtensions;
+using IvNetSwitcher.Core.Abstractions;
+
+namespace IvNetSwitcher.Core.AppServices
+{
+    public class AppService: IAppService
+    {
+        #region Implementation of IAppService
+
+        public Result RegisterProfile()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Result DeleteProfile()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Result GoPlay()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Result GoNext()
+        {
+            throw new System.NotImplementedException();
+        }
+
+        #endregion
+    }
+}

@@ -104,6 +104,13 @@
                             <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
                                 <Image Source="{DynamicResource NexPlayPicture}" />
                             </Button>
+                            <Separator/>
+                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
+                                <Image Source="{DynamicResource EditPicture}" />
+                            </Button>
+                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
+                                <Image Source="{DynamicResource DeletePicture}" />
+                            </Button>
                         </ToolBar>
                     </ToolBarTray>
                     <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
@@ -136,9 +143,7 @@
                             <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Add new">
                                 <Image Source="{DynamicResource AddNewPicture}" />
                             </Button>
-                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
-                                <Image Source="{DynamicResource EditPicture}" />
-                            </Button>
+                            
                         </ToolBar>
                     </ToolBarTray>
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
