@@ -113,8 +113,8 @@
     <Otherwise />
   </Choose>
   <ItemGroup>
+    <Compile Include="AppServices\AppServiceTests.cs" />
     <Compile Include="DomainServices\WiFiServiceTests.cs" />
-    <Compile Include="DomainServices\AppServiceTests.cs" />
     <Compile Include="Domain\ProfilesFactory.cs" />
     <Compile Include="SharedForTests\PasswordArg.cs" />
     <Compile Include="Domain\ProfilesTests.cs" />

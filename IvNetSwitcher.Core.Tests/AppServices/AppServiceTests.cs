@@ -4,7 +4,7 @@ using IvNetSwitcher.Core.AppServices;
 using IvNetSwitcher.Core.Tests.Domain;
 using Xunit;
 
-namespace IvNetSwitcher.Core.Tests.DomainServices
+namespace IvNetSwitcher.Core.Tests.AppServices
 {
     public class AppServiceTests
     {
@@ -21,7 +21,7 @@ namespace IvNetSwitcher.Core.Tests.DomainServices
                     ws.LoadData(ProfilesFactory.CreateProfiles());
                     ws.Run(new Uri("https://www.google.com"), 1, 1, 1);
                 };
-            
+
             //Assert
             sut.ShouldNotThrow();
         }

@@ -143,7 +143,6 @@
                             <Button Width="48" Height="48" Command="{Binding AddProfileCommand, Mode=OneTime}" ToolTip="Add new">
                                 <Image Source="{DynamicResource AddNewPicture}" />
                             </Button>
-                            
                         </ToolBar>
                     </ToolBarTray>
                     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
