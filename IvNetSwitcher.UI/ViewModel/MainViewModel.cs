@@ -37,6 +37,7 @@ namespace IvNetSwitcher.UI.ViewModel
 
         public int SelectedTabIndex { get; set; }
         public bool IsSettingsOpened { get; set; }
+        public bool IsHelpOpened { get; set; }
         
         public Profiles RegisteredNets { get; set; }
         public Profiles AvailableNets { get; set; }
@@ -70,17 +71,14 @@ namespace IvNetSwitcher.UI.ViewModel
                 Messenger.Default.Send(new NotificationMessage("ToggleWindow"));
             });
 
-            HelpCommand = new RelayCommand(() =>
-            {
-                SelectedTabIndex = 2;
-            });
-
             RefreshCommand = new RelayCommand(() =>
             {
 
             });
 
             SettingsCommand = new RelayCommand(() => { IsSettingsOpened = !IsSettingsOpened; });
+
+            HelpCommand = new RelayCommand(() => { IsHelpOpened = !IsHelpOpened; });
         }
 
         private void InformAboutError(string errorString)
