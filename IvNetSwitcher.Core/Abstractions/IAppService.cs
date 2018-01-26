@@ -1,4 +1,5 @@
-﻿using CSharpFunctionalExtensions;
+﻿using System;
+using CSharpFunctionalExtensions;
 using IvNetSwitcher.Core.Domain;
 
 namespace IvNetSwitcher.Core.Abstractions
@@ -13,5 +14,7 @@ namespace IvNetSwitcher.Core.Abstractions
 
         Result GoPlay();
         Result GoNext();
+
+        void Run(Uri hostToPing, int delay, int retry, int times = 0);
     }
 }

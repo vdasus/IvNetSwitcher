@@ -1,24 +1,25 @@
 ﻿using System;
 using FluentAssertions;
-using IvNetSwitcher.Core.DomainServices;
+using IvNetSwitcher.Core.AppServices;
 using IvNetSwitcher.Core.Tests.Domain;
 using Xunit;
 
 namespace IvNetSwitcher.Core.Tests.DomainServices
 {
-    public class WorkerServiceTests
+    public class AppServiceTests
     {
         [Fact]
         public void Run_Result()
         {
             //Arrange
-            var ws = new WorkerService();
+            var ws = new AppService();
 
             //Act
             Action sut =
                 () =>
                 {
-                    ws.Run(ProfilesFactory.CreateProfiles(), new Uri("https://www.google.com"), 1, 1, 1);
+                    ws.LoadData(ProfilesFactory.CreateProfiles());
+                    ws.Run(new Uri("https://www.google.com"), 1, 1, 1);
                 };
             
             //Assert

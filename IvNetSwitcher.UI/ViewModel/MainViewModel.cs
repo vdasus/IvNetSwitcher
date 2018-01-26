@@ -32,6 +32,12 @@ namespace IvNetSwitcher.UI.ViewModel
         public RelayCommand RefreshCommand { get; set; }
         public RelayCommand SettingsCommand { get; set; }
 
+        public RelayCommand AddProfileCommand { get; set; }
+        public RelayCommand GoPlayCommand { get; set; }
+        public RelayCommand GoNextCommand { get; set; }
+        public RelayCommand EditProfileCommand { get; set; }
+        public RelayCommand DeleteProfileCommand { get; set; }
+
         #endregion
 
         public string StatusText { get; private set; }
@@ -60,10 +66,7 @@ namespace IvNetSwitcher.UI.ViewModel
 
         // TODO just temp snippets
         /*
-                Messenger.Default.Send(new NotificationMessage(this,
-                    $"{_currentActiveWorkItemInfo.Id} CompletedWork update successful",
-                "ShowTooltip"));
-
+                Messenger.Default.Send(new NotificationMessage(this, $"", "ShowTooltip"));
                 Messenger.Default.Send(new NotificationMessage(this, rezAll.Error, "ShowErrorTooltip"));
         */
         
@@ -74,14 +77,17 @@ namespace IvNetSwitcher.UI.ViewModel
                 Messenger.Default.Send(new NotificationMessage("ToggleWindow"));
             });
 
-            RefreshCommand = new RelayCommand(() =>
-            {
-
-            });
+            RefreshCommand = new RelayCommand(LoadData);
 
             SettingsCommand = new RelayCommand(() => { IsSettingsOpened = !IsSettingsOpened; });
 
             HelpCommand = new RelayCommand(() => { IsHelpOpened = !IsHelpOpened; });
+
+            AddProfileCommand = new RelayCommand(() => { });
+            GoPlayCommand = new RelayCommand(() => { });
+            GoNextCommand = new RelayCommand(() => { });
+            EditProfileCommand = new RelayCommand(() => { });
+            DeleteProfileCommand = new RelayCommand(() => { });
         }
 
         private void InformAboutError(string errorString)

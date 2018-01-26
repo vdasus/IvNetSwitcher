@@ -98,17 +98,17 @@
                     </Grid.ColumnDefinitions>
                     <ToolBarTray Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Orientation="Horizontal">
                         <ToolBar OverflowMode="Never" Background="Transparent">
-                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Add new">
+                            <Button Width="48" Height="48" Command="{Binding GoPlayCommand, Mode=OneTime}" ToolTip="Add new">
                                 <Image Source="{DynamicResource PlayPicture}" />
                             </Button>
-                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
+                            <Button Width="48" Height="48" Command="{Binding GoNextCommand, Mode=OneTime}" ToolTip="Edit current">
                                 <Image Source="{DynamicResource NexPlayPicture}" />
                             </Button>
                             <Separator/>
-                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
+                            <Button Width="48" Height="48" Command="{Binding EditProfileCommand, Mode=OneTime}" ToolTip="Edit current">
                                 <Image Source="{DynamicResource EditPicture}" />
                             </Button>
-                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Edit current">
+                            <Button Width="48" Height="48" Command="{Binding DeleteProfileCommand, Mode=OneTime}" ToolTip="Edit current">
                                 <Image Source="{DynamicResource DeletePicture}" />
                             </Button>
                         </ToolBar>
@@ -140,7 +140,7 @@
                     </Grid.ColumnDefinitions>
                     <ToolBarTray Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Orientation="Horizontal">
                         <ToolBar OverflowMode="Never" Background="Transparent">
-                            <Button Width="48" Height="48" Command="{Binding ClearPatchCommand, Mode=OneTime}" ToolTip="Add new">
+                            <Button Width="48" Height="48" Command="{Binding AddProfileCommand, Mode=OneTime}" ToolTip="Add new">
                                 <Image Source="{DynamicResource AddNewPicture}" />
                             </Button>
                             

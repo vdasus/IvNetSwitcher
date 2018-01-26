@@ -12,7 +12,7 @@ namespace IvNetSwitcher.Core
         static Bootstrap()
         {
             Container = new Container();
-            Container.Register<IWorkerService, WorkerService>(Reuse.Singleton);
+            
             Container.Register<IAppService, AppService>(Reuse.Singleton);
 #if DEBUG
             Container.Register<INetService, FakeService>(Reuse.Transient);

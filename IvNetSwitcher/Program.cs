@@ -9,6 +9,7 @@ using IvNetSwitcher.Core.Domain;
 using IvNetSwitcher.Core.Dto;
 using IvNetSwitcher.Core.Shared;
 using IvNetSwitcher.Properties;
+using IvNetSwitcher.Shared;
 using NDesk.Options;
 using NLog;
 
@@ -19,7 +20,7 @@ namespace IvNetSwitcher
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
 
         private static INetService _net;
-        private static IWorkerService _worker;
+        private static IAppService _appSvc;
 
         private static Profiles _profiles;
         
@@ -80,9 +81,8 @@ namespace IvNetSwitcher
                 }
                 
                 ConfigurationRootInit();
-                LoadProfiles();
-
-
+                LoadData();
+                
                 _log.Info(_net.Status());
 
                 if (IsList)
@@ -118,15 +118,15 @@ namespace IvNetSwitcher
             HostToPing = new Uri(Settings.Default.HostToPing);
         }
 
-        private static void LoadProfiles()
+        private static void LoadData()
         {
             var tmpProfiles = Settings.Default.Profiles.XmlDeserializeFromString<List<ProfileDto>>();
-            _profiles = new Profiles(_net, tmpProfiles, Settings.Default.EncSalt);
+            _profiles = _appSvc.LoadData(new Profiles(_net, tmpProfiles, Settings.Default.EncSalt));
         }
 
         private static void ConfigurationRootInit()
         {
-            _worker = Bootstrap.Container.Resolve<IWorkerService>();
+            _appSvc = Bootstrap.Container.Resolve<IAppService>();
             _net = Bootstrap.Container.Resolve<INetService>();
         }
 
@@ -141,14 +141,8 @@ namespace IvNetSwitcher
 
         private static void Do()
         {
-            _worker.Run(_profiles, HostToPing,  DelayInSec, Retry, MaxTimesToCheck);
+            LoadData();
+            _appSvc.Run(HostToPing,  DelayInSec, Retry, MaxTimesToCheck);
         }
-    }
-
-    public enum ExitCodes
-    {
-        Ok = 0,
-        Error = 100,
-        Unknown = 101
     }
 }
