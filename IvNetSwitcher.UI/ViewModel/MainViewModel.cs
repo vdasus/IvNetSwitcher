@@ -18,6 +18,7 @@ namespace IvNetSwitcher.UI.ViewModel
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
 
         private readonly INetService _net;
+        private readonly IAppService _appSvc;
 
         public string Caption { get; } =
             $"IvNetSwitcher v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
@@ -42,9 +43,11 @@ namespace IvNetSwitcher.UI.ViewModel
         public Profiles RegisteredNets { get; set; }
         public Profiles AvailableNets { get; set; }
         
-        public MainViewModel(INetService net)
+        public MainViewModel(INetService net, IAppService appSvc)
         {
             _net = net;
+            _appSvc = appSvc;
+
             InitCommands();
             LoadData();
         }
@@ -52,7 +55,7 @@ namespace IvNetSwitcher.UI.ViewModel
         private void LoadData()
         {
             var tmpProfiles = Settings.Default.Profiles.XmlDeserializeFromString<List<ProfileDto>>();
-            RegisteredNets = new Profiles(_net, tmpProfiles, Settings.Default.EncSalt);
+            RegisteredNets = _appSvc.LoadData(new Profiles(_net, tmpProfiles, Settings.Default.EncSalt));
         }
 
         // TODO just temp snippets
