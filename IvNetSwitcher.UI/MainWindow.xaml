@@ -18,6 +18,17 @@
                       DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
+            <Button Command="{Binding Path=DataContext.RegisterCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
+                <StackPanel Orientation="Horizontal">
+                    <Rectangle Width="20" Height="20"
+                               Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
+                        <Rectangle.OpacityMask>
+                            <VisualBrush Stretch="Uniform" Visual="{StaticResource appbar_edit_add}" />
+                        </Rectangle.OpacityMask>
+                    </Rectangle>
+                    <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Register Network" />
+                </StackPanel>
+            </Button>
             <Button Command="{Binding Path=DataContext.SettingsCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20"
@@ -84,109 +95,75 @@
                 <Label Content="{Binding StatusText}" />
             </StatusBarItem>
         </StatusBar>
-        <TabControl DockPanel.Dock="Top" SelectedIndex="{Binding SelectedTabIndex, Mode=TwoWay}">
-            <TabItem Header="Networks" IsSelected="True" Background="Transparent">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <ToolBarTray Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Orientation="Horizontal">
-                        <ToolBar OverflowMode="Never" Background="Transparent">
-                            <Button Width="48" Height="48" Command="{Binding GoPlayCommand, Mode=OneTime}" ToolTip="Start monitoring">
-                                <Image Source="{DynamicResource PlayPicture}" />
-                            </Button>
-                            <Button Width="48" Height="48" Command="{Binding GoNextCommand, Mode=OneTime}" ToolTip="Connect to next network">
-                                <Image Source="{DynamicResource NexPlayPicture}" />
-                            </Button>
-                            <Separator/>
-                            <Button Width="48" Height="48" Command="{Binding EditProfileCommand, Mode=OneTime}" ToolTip="Edit profile">
-                                <Image Source="{DynamicResource EditPicture}" />
-                            </Button>
-                            <Button Width="48" Height="48" Command="{Binding DeleteProfileCommand, Mode=OneTime}" ToolTip="Delete profile">
-                                <Image Source="{DynamicResource DeletePicture}" />
-                            </Button>
-                        </ToolBar>
-                    </ToolBarTray>
-                    <ListView Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
-                        <ListView.ItemTemplate>
-                            <DataTemplate>
-                                <controls:Tile Title="{Binding Name, Mode=OneTime }" 
-                                                   Width="Auto"
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition />
+                <ColumnDefinition />
+                <ColumnDefinition />
+            </Grid.ColumnDefinitions>
+            <ToolBarTray Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Orientation="Horizontal">
+                <ToolBar OverflowMode="Never" Background="Transparent">
+                    <Button Width="48" Height="48" Command="{Binding GoPlayCommand, Mode=OneTime}" ToolTip="Start monitoring">
+                        <Image Source="{DynamicResource PlayPicture}" />
+                    </Button>
+                    <Button Width="48" Height="48" Command="{Binding GoNextCommand, Mode=OneTime}" ToolTip="Connect to next network">
+                        <Image Source="{DynamicResource NexPlayPicture}" />
+                    </Button>
+                    <Separator/>
+                    <Button Width="48" Height="48" Command="{Binding EditProfileCommand, Mode=OneTime}" ToolTip="Edit profile">
+                        <Image Source="{DynamicResource EditPicture}" />
+                    </Button>
+                    <Button Width="48" Height="48" Command="{Binding DeleteProfileCommand, Mode=OneTime}" ToolTip="Delete profile">
+                        <Image Source="{DynamicResource DeletePicture}" />
+                    </Button>
+                </ToolBar>
+            </ToolBarTray>
+            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
+                <ListView BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
+                    <ListView.ItemTemplate>
+                        <DataTemplate>
+                            <controls:Tile Title="{Binding Name, Mode=OneTime }" 
+                                                   Width="200"
                                                    Height="100" 
                                                    Count="{Binding Active}"
                                                    KeepDragging="True" 
                                                    VerticalTitleAlignment="Top" />
-                            </DataTemplate>
-                        </ListView.ItemTemplate>
-                    </ListView>
-                </Grid>
-            </TabItem>
-            <TabItem Header="Register" Background="Transparent">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="200" />
-                        <RowDefinition />
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                        <ColumnDefinition />
-                    </Grid.ColumnDefinitions>
-                    <ToolBarTray Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Orientation="Horizontal">
-                        <ToolBar OverflowMode="Never" Background="Transparent">
-                            <Button Width="48" Height="48" Command="{Binding AddProfileCommand, Mode=OneTime}" ToolTip="Add new profile">
-                                <Image Source="{DynamicResource AddNewPicture}" />
-                            </Button>
-                            <Button Width="48" Height="48" Command="{Binding RefreshNetworksCommand, Mode=OneTime}" ToolTip="Refresh network list">
-                                <Image Source="{DynamicResource RefreshPicture}" />
-                            </Button>
-                        </ToolBar>
-                    </ToolBarTray>
-                    <ScrollViewer Margin="16" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
-                                  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
-                        <ListView BorderThickness="0" ItemsSource="{Binding AvailableNets}">
-                            <ListView.ItemTemplate>
-                                <DataTemplate>
-                                    <StackPanel Margin="0 10" Orientation="Horizontal">
-                                        <Image Width="24" Source="{DynamicResource LockedPicture}" 
-                                           Visibility="{Binding IsSecure, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
-                                        <Label Content="{Binding Name, Mode=OneWay}"/>
-                                    </StackPanel>
-                                </DataTemplate>
-                            </ListView.ItemTemplate>
-                        </ListView>
-                    </ScrollViewer>
-                        <Grid Margin="16" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            <RowDefinition Height="Auto"/>
-                            </Grid.RowDefinitions>
-                            <Grid.ColumnDefinitions>
-                                <ColumnDefinition Width="Auto"/>
-                                <ColumnDefinition/>
-                            </Grid.ColumnDefinitions>
-                        <Label Grid.Row="0" Grid.Column="0" Content="USER"/>
-                        <TextBox Grid.Row="0" Grid.Column="1" Text="LALALA"/>
-                        <Label Grid.Row="1" Grid.Column="0" Content="PASSWORD"/>
-                        <TextBox Grid.Row="1" Grid.Column="1" Text="LALALA"/>
-                        <CheckBox Grid.Row="2" Grid.Column="1">Preferred</CheckBox>
-                        </Grid>
-                </Grid>
-            </TabItem>
-        </TabControl>
+                        </DataTemplate>
+                    </ListView.ItemTemplate>
+                </ListView>
+                <controls:Tile Margin="10"
+                                       Title="" 
+                                   Width="Auto"
+                                   Height="100" 
+                                   Background="Transparent"
+                                       Foreground="#FF1585B5"
+                                   BorderThickness="1"
+                                   Count="ADD"
+                                   KeepDragging="True" 
+                                   VerticalTitleAlignment="Top" />
+            </StackPanel>
+        </Grid>
 
         <!--<ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"></ScrollViewer>-->
     </DockPanel>
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
+            <controls:Flyout Header="Register" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsRegisterOpened}">
+                <ToolBarTray Orientation="Horizontal">
+                    <ToolBar OverflowMode="Never" Background="Transparent">
+                        <Button Width="48" Height="48" Command="{Binding AddProfileCommand, Mode=OneTime}" ToolTip="Add new profile">
+                            <Image Source="{DynamicResource AddNewPicture}" />
+                        </Button>
+                        <Button Width="48" Height="48" Command="{Binding RefreshNetworksCommand, Mode=OneTime}" ToolTip="Refresh network list">
+                            <Image Source="{DynamicResource RefreshPicture}" />
+                        </Button>
+                    </ToolBar>
+                </ToolBarTray>
+            </controls:Flyout>
             <controls:Flyout Header="Settings" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsSettingsOpened}">
                 <!-- Your custom content here -->
             </controls:Flyout>
@@ -196,4 +173,3 @@
         </controls:FlyoutsControl>
     </controls:MetroWindow.Flyouts>
 </controls:MetroWindow>
-

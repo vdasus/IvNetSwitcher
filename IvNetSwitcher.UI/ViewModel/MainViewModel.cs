@@ -40,6 +40,7 @@ namespace IvNetSwitcher.UI.ViewModel
         public RelayCommand EditProfileCommand { get; set; }
         public RelayCommand DeleteProfileCommand { get; set; }
         public RelayCommand RefreshNetworksCommand { get; set; }
+        public RelayCommand RegisterCommand { get; set; }
 
         #endregion
 
@@ -48,6 +49,7 @@ namespace IvNetSwitcher.UI.ViewModel
         public int SelectedTabIndex { get; set; }
         public bool IsSettingsOpened { get; set; }
         public bool IsHelpOpened { get; set; }
+        public bool IsRegisterOpened { get; set; }
         
         public Profiles RegisteredNets { get; set; }
         public IReadOnlyList<Network> AvailableNets { get; set; }
@@ -84,6 +86,7 @@ namespace IvNetSwitcher.UI.ViewModel
 
             SettingsCommand = new RelayCommand(() => { IsSettingsOpened = !IsSettingsOpened; });
             HelpCommand = new RelayCommand(() => { IsHelpOpened = !IsHelpOpened; });
+            RegisterCommand = new RelayCommand(() => { IsRegisterOpened = !IsRegisterOpened; });
 
             AddProfileCommand = new RelayCommand(() => { });
             GoPlayCommand = new RelayCommand(() => { });
