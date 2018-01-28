@@ -123,8 +123,8 @@
                 </ToolBar>
             </ToolBarTray>
             <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
-                <ListView BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
-                    <ListView.ItemTemplate>
+                <ListBox BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
+                    <ListBox.ItemTemplate>
                         <DataTemplate>
                             <controls:Tile Title="{Binding Name, Mode=OneTime }" 
                                                    Width="200"
@@ -133,8 +133,8 @@
                                                    KeepDragging="True" 
                                                    VerticalTitleAlignment="Top" />
                         </DataTemplate>
-                    </ListView.ItemTemplate>
-                </ListView>
+                    </ListBox.ItemTemplate>
+                </ListBox>
                 <controls:Tile Margin="10"
                                        Title="" 
                                    Width="Auto"
@@ -153,16 +153,28 @@
     <controls:MetroWindow.Flyouts>
         <controls:FlyoutsControl>
             <controls:Flyout Header="Register" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsRegisterOpened}">
-                <ToolBarTray Orientation="Horizontal">
-                    <ToolBar OverflowMode="Never" Background="Transparent">
-                        <Button Width="48" Height="48" Command="{Binding AddProfileCommand, Mode=OneTime}" ToolTip="Add new profile">
-                            <Image Source="{DynamicResource AddNewPicture}" />
-                        </Button>
-                        <Button Width="48" Height="48" Command="{Binding RefreshNetworksCommand, Mode=OneTime}" ToolTip="Refresh network list">
-                            <Image Source="{DynamicResource RefreshPicture}" />
-                        </Button>
-                    </ToolBar>
-                </ToolBarTray>
+                <StackPanel Margin="8">
+                    <WrapPanel HorizontalAlignment="Left">
+                        <controls:SplitButton  Margin="8" 
+                                               Icon="{DynamicResource appbar_network}"
+                                               HorizontalContentAlignment="Left"
+                                               HorizontalAlignment="Center"
+                                               VerticalContentAlignment="Center"
+                                               Width="Auto"
+                                               SelectedIndex="0"
+                                               ItemsSource="{Binding AvailableNets}"
+                                               DisplayMemberPath="Name"
+                                               VerticalAlignment="Center" />
+                    </WrapPanel>
+                    <TextBox Margin="8" controls:TextBoxHelper.Watermark="User name" controls:TextBoxHelper.ClearTextButton="True" Text=""/>
+                    <PasswordBox controls:PasswordBoxHelper.CapsLockWarningToolTip="Caps lock ON" Margin="8" controls:TextBoxHelper.Watermark="Password" 
+                                 controls:TextBoxHelper.ClearTextButton="True"
+                                 Password="">
+                    </PasswordBox>
+                    
+                    <CheckBox Margin="8">Preferred</CheckBox>
+                    <Button Margin="8" HorizontalAlignment="Right" Width="100">Save</Button>
+                </StackPanel>
             </controls:Flyout>
             <controls:Flyout Header="Settings" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsSettingsOpened}">
                 <!-- Your custom content here -->

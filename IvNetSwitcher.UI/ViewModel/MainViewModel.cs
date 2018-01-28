@@ -86,26 +86,34 @@ namespace IvNetSwitcher.UI.ViewModel
 
             SettingsCommand = new RelayCommand(() => { IsSettingsOpened = !IsSettingsOpened; });
             HelpCommand = new RelayCommand(() => { IsHelpOpened = !IsHelpOpened; });
-            RegisterCommand = new RelayCommand(() => { IsRegisterOpened = !IsRegisterOpened; });
+
+            RegisterCommand = new RelayCommand(async () =>
+            {
+                IsRegisterOpened = !IsRegisterOpened;
+                if(IsRegisterOpened) await LoadAvailableNetworks();
+            });
 
             AddProfileCommand = new RelayCommand(() => { });
             GoPlayCommand = new RelayCommand(() => { });
             GoNextCommand = new RelayCommand(() => { });
             EditProfileCommand = new RelayCommand(() => { });
             DeleteProfileCommand = new RelayCommand(() => { });
-            RefreshNetworksCommand = new RelayCommand(async () =>
-            {
-                try
-                {
-                    SetBusyIndicator();
-                    await RunLoadNetworksAsync();
-                }
-                finally
-                {
-                    SetBusyIndicator(false);
-                }
-            });
+            RefreshNetworksCommand = new RelayCommand(async () => { await LoadAvailableNetworks(); });
         }
+
+        private async Task LoadAvailableNetworks()
+        {
+            try
+            {
+                SetBusyIndicator();
+                await RunLoadNetworksAsync();
+            }
+            finally
+            {
+                SetBusyIndicator(false);
+            }
+        }
+
         private async Task RunLoadNetworksAsync() => 
             await Task.Run(() =>
             {
