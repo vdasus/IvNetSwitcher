@@ -106,7 +106,7 @@ namespace IvNetSwitcher.UI.ViewModel
         private async Task RunLoadNetworksAsync() => 
             await Task.Run(() =>
             {
-                return AvailableNets = _appSvc.GetNetworks();
+                AvailableNets = _appSvc.GetNetworks();
             });
 
         private void InformAboutError(string errorString)

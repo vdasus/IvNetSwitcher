@@ -155,7 +155,7 @@
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <StackPanel Margin="0 10" Orientation="Horizontal">
-                                        <Image Source="{DynamicResource LockedPicture}" 
+                                        <Image Width="24" Source="{DynamicResource LockedPicture}" 
                                            Visibility="{Binding IsSecure, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
                                         <Label Content="{Binding Name, Mode=OneWay}"/>
                                     </StackPanel>
