@@ -98,17 +98,17 @@
                     </Grid.ColumnDefinitions>
                     <ToolBarTray Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Orientation="Horizontal">
                         <ToolBar OverflowMode="Never" Background="Transparent">
-                            <Button Width="48" Height="48" Command="{Binding GoPlayCommand, Mode=OneTime}" ToolTip="Add new">
+                            <Button Width="48" Height="48" Command="{Binding GoPlayCommand, Mode=OneTime}" ToolTip="Start monitoring">
                                 <Image Source="{DynamicResource PlayPicture}" />
                             </Button>
-                            <Button Width="48" Height="48" Command="{Binding GoNextCommand, Mode=OneTime}" ToolTip="Edit current">
+                            <Button Width="48" Height="48" Command="{Binding GoNextCommand, Mode=OneTime}" ToolTip="Connect to next network">
                                 <Image Source="{DynamicResource NexPlayPicture}" />
                             </Button>
                             <Separator/>
-                            <Button Width="48" Height="48" Command="{Binding EditProfileCommand, Mode=OneTime}" ToolTip="Edit current">
+                            <Button Width="48" Height="48" Command="{Binding EditProfileCommand, Mode=OneTime}" ToolTip="Edit profile">
                                 <Image Source="{DynamicResource EditPicture}" />
                             </Button>
-                            <Button Width="48" Height="48" Command="{Binding DeleteProfileCommand, Mode=OneTime}" ToolTip="Edit current">
+                            <Button Width="48" Height="48" Command="{Binding DeleteProfileCommand, Mode=OneTime}" ToolTip="Delete profile">
                                 <Image Source="{DynamicResource DeletePicture}" />
                             </Button>
                         </ToolBar>
@@ -131,6 +131,7 @@
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="200" />
                         <RowDefinition />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
@@ -140,43 +141,44 @@
                     </Grid.ColumnDefinitions>
                     <ToolBarTray Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Orientation="Horizontal">
                         <ToolBar OverflowMode="Never" Background="Transparent">
-                            <Button Width="48" Height="48" Command="{Binding AddProfileCommand, Mode=OneTime}" ToolTip="Add new">
+                            <Button Width="48" Height="48" Command="{Binding AddProfileCommand, Mode=OneTime}" ToolTip="Add new profile">
                                 <Image Source="{DynamicResource AddNewPicture}" />
+                            </Button>
+                            <Button Width="48" Height="48" Command="{Binding RefreshNetworksCommand, Mode=OneTime}" ToolTip="Refresh network list">
+                                <Image Source="{DynamicResource RefreshPicture}" />
                             </Button>
                         </ToolBar>
                     </ToolBarTray>
-                    <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3">
-                        <StackPanel  Orientation="Horizontal">
-                            <controls:Tile Title="PhoneNumberOne" 
-                                       Width="Auto"
-                                       Height="100" 
-                                       Count="2"
-                                       VerticalTitleAlignment="Top"
-                                       HorizontalTitleAlignment="Left"
-                                       KeepDragging="True" />
-                            <controls:Tile Title="PhoneNumberOne" 
-                                       Width="Auto"
-                                       Height="100" 
-                                       Count="2"
-                                       VerticalTitleAlignment="Top"
-                                       HorizontalTitleAlignment="Left"
-                                       KeepDragging="True" />
-                            <controls:Tile Title="PhoneNumberOne" 
-                                       Width="Auto"
-                                       Height="100" 
-                                       Count="2"
-                                       VerticalTitleAlignment="Top"
-                                       HorizontalTitleAlignment="Left"
-                                       KeepDragging="True" />
-                            <controls:Tile Title="PhoneNumberOne" 
-                                       Width="Auto"
-                                       Height="100" 
-                                       Count="2"
-                                       VerticalTitleAlignment="Top"
-                                       HorizontalTitleAlignment="Left"
-                                       KeepDragging="True" />
-                        </StackPanel>
+                    <ScrollViewer Margin="16" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3"
+                                  HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto">
+                        <ListView BorderThickness="0" ItemsSource="{Binding AvailableNets}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <StackPanel Margin="0 10" Orientation="Horizontal">
+                                        <Image Source="{DynamicResource LockedPicture}" 
+                                           Visibility="{Binding IsSecure, Mode=OneWay, Converter={StaticResource BoolToVis}}" />
+                                        <Label Content="{Binding Name, Mode=OneWay}"/>
+                                    </StackPanel>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
                     </ScrollViewer>
+                        <Grid Margin="16" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3">
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        <Label Grid.Row="0" Grid.Column="0" Content="USER"/>
+                        <TextBox Grid.Row="0" Grid.Column="1" Text="LALALA"/>
+                        <Label Grid.Row="1" Grid.Column="0" Content="PASSWORD"/>
+                        <TextBox Grid.Row="1" Grid.Column="1" Text="LALALA"/>
+                        <CheckBox Grid.Row="2" Grid.Column="1">Preferred</CheckBox>
+                        </Grid>
                 </Grid>
             </TabItem>
         </TabControl>

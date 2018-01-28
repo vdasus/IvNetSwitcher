@@ -52,6 +52,16 @@
                     <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Media Next.png" />
                 </DrawingImage.Drawing>
             </DrawingImage>
+            <DrawingImage x:Key="RefreshPicture">
+                <DrawingImage.Drawing>
+                    <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Command-Refresh.png" />
+                </DrawingImage.Drawing>
+            </DrawingImage>
+            <DrawingImage x:Key="LockedPicture">
+                <DrawingImage.Drawing>
+                    <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Lock.png" />
+                </DrawingImage.Drawing>
+            </DrawingImage>
 
             <!--<DrawingImage x:Key="StartImage">
                 <DrawingImage.Drawing>

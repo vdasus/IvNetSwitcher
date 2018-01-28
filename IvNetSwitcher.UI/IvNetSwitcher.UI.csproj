@@ -181,6 +181,11 @@
     <Resource Include="Resources\Trash can - 04.png" />
     <Resource Include="Resources\Wifi-01.png" />
   </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Resources\Command-Refresh.png" />
+    <Resource Include="Resources\Lock.png" />
+    <Resource Include="Resources\Login-01.png" />
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <PropertyGroup>
     <PreBuildEvent>if $(ConfigurationName) == Release $(SolutionDir)vrinc.exe -r -m0001 -f$(ProjectDir)Properties\AssemblyInfo.cs -t"AssemblyVersion\(\"(\d+)\.(\d+)\.(\d+)\.(\d+)\"\)"</PreBuildEvent>

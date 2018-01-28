@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
@@ -11,8 +12,14 @@ namespace IvNetSwitcher.Core.AppServices
 {
     public class AppService: IAppService
     {
+        private readonly INetService _ds;
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
         private Profiles _profiles;
+
+        public AppService(INetService ds)
+        {
+            _ds = ds;
+        }
 
         #region Implementation of IAppService
 
@@ -20,6 +27,11 @@ namespace IvNetSwitcher.Core.AppServices
         {
             _profiles = profiles;
             return _profiles;
+        }
+
+        public IReadOnlyList<Network> GetNetworks()
+        {
+            return _ds.ListAvailableNetworks();
         }
 
         public Result RegisterProfile()

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
 using IvNetSwitcher.Core.Abstractions;
@@ -37,6 +39,7 @@ namespace IvNetSwitcher.UI.ViewModel
         public RelayCommand GoNextCommand { get; set; }
         public RelayCommand EditProfileCommand { get; set; }
         public RelayCommand DeleteProfileCommand { get; set; }
+        public RelayCommand RefreshNetworksCommand { get; set; }
 
         #endregion
 
@@ -47,7 +50,7 @@ namespace IvNetSwitcher.UI.ViewModel
         public bool IsHelpOpened { get; set; }
         
         public Profiles RegisteredNets { get; set; }
-        public Profiles AvailableNets { get; set; }
+        public IReadOnlyList<Network> AvailableNets { get; set; }
         
         public MainViewModel(INetService net, IAppService appSvc)
         {
@@ -69,7 +72,7 @@ namespace IvNetSwitcher.UI.ViewModel
                 Messenger.Default.Send(new NotificationMessage(this, $"", "ShowTooltip"));
                 Messenger.Default.Send(new NotificationMessage(this, rezAll.Error, "ShowErrorTooltip"));
         */
-        
+
         private void InitCommands()
         {
             MinMaxCommand = new RelayCommand(() =>
@@ -80,7 +83,6 @@ namespace IvNetSwitcher.UI.ViewModel
             RefreshCommand = new RelayCommand(LoadData);
 
             SettingsCommand = new RelayCommand(() => { IsSettingsOpened = !IsSettingsOpened; });
-
             HelpCommand = new RelayCommand(() => { IsHelpOpened = !IsHelpOpened; });
 
             AddProfileCommand = new RelayCommand(() => { });
@@ -88,7 +90,24 @@ namespace IvNetSwitcher.UI.ViewModel
             GoNextCommand = new RelayCommand(() => { });
             EditProfileCommand = new RelayCommand(() => { });
             DeleteProfileCommand = new RelayCommand(() => { });
+            RefreshNetworksCommand = new RelayCommand(async () =>
+            {
+                try
+                {
+                    SetBusyIndicator();
+                    await RunLoadNetworksAsync();
+                }
+                finally
+                {
+                    SetBusyIndicator(false);
+                }
+            });
         }
+        private async Task RunLoadNetworksAsync() => 
+            await Task.Run(() =>
+            {
+                return AvailableNets = _appSvc.GetNetworks();
+            });
 
         private void InformAboutError(string errorString)
         {

@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading;
 using CSharpFunctionalExtensions;
 using IvNetSwitcher.Core.Abstractions;
 using IvNetSwitcher.Core.Domain;
@@ -14,9 +16,10 @@ namespace IvNetSwitcher.Core.DomainServices
             var result = new List<Network>
             {
                 new Network(1, "name", 10, true, true, true),
-                new Network(2, "name2", 1, true, true, false),
+                new Network(2, "name2", 1, true, false, false),
                 new Network(3, "name3", 5, true, true, false)
             };
+            Thread.Sleep(TimeSpan.FromSeconds(1));
             return result;
         }
 

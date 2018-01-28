@@ -1,6 +1,7 @@
 ﻿using System;
 using FluentAssertions;
 using IvNetSwitcher.Core.AppServices;
+using IvNetSwitcher.Core.DomainServices;
 using IvNetSwitcher.Core.Tests.Domain;
 using Xunit;
 
@@ -12,7 +13,7 @@ namespace IvNetSwitcher.Core.Tests.AppServices
         public void Run_Result()
         {
             //Arrange
-            var ws = new AppService();
+            var ws = new AppService(new FakeService());
 
             //Act
             Action sut =
