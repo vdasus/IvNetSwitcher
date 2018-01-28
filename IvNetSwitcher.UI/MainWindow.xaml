@@ -155,6 +155,7 @@
             <controls:Flyout Header="Register" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsRegisterOpened}">
                 <StackPanel Margin="8">
                     <WrapPanel HorizontalAlignment="Left">
+                        <wpf:LoadingIndicator Margin="4" VerticalAlignment="Top" Visibility="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToVis}}" IsActive="{Binding IsBusy}" Foreground="OrangeRed" Style="{DynamicResource LoadingIndicatorArcsStyleKey}" />
                         <controls:SplitButton  Margin="8" 
                                                Icon="{DynamicResource appbar_network}"
                                                HorizontalContentAlignment="Left"
@@ -164,6 +165,7 @@
                                                SelectedIndex="0"
                                                ItemsSource="{Binding AvailableNets}"
                                                DisplayMemberPath="Name"
+                                               FontSize="16"
                                                VerticalAlignment="Center" />
                     </WrapPanel>
                     <TextBox Margin="8" controls:TextBoxHelper.Watermark="User name" controls:TextBoxHelper.ClearTextButton="True" Text=""/>

@@ -17,7 +17,7 @@ namespace IvNetSwitcher.Core.DomainServices
             {
                 new Network(1, "name of network", 10, true, true, true),
                 new Network(2, "name2 of network home", 1, true, false, false),
-                new Network(3, "name3 of network work", 5, true, true, false)
+                new Network(3, "name3 of network work just a test of long name", 5, true, true, false)
             };
             Thread.Sleep(TimeSpan.FromSeconds(1));
             return result;
