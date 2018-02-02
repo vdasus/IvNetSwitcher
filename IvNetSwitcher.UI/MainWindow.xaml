@@ -1,9 +1,9 @@
-﻿<controls:MetroWindow x:Class="IvNetSwitcher.UI.MainWindow"
+﻿<mah:MetroWindow x:Class="IvNetSwitcher.UI.MainWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
              xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
         xmlns:local="clr-namespace:IvNetSwitcher.UI"
         xmlns:tb="http://www.hardcodet.net/taskbar"
@@ -18,9 +18,9 @@
                       Height="480"
                       Title="{Binding Caption, Mode=OneTime}"
                       DataContext="{Binding Source={StaticResource Locator}, Path=Main}">
-    <controls:MetroWindow.RightWindowCommands>
-        <controls:WindowCommands>
-            <Button Command="{Binding Path=DataContext.RegisterCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
+    <mah:MetroWindow.RightWindowCommands>
+        <mah:WindowCommands>
+            <Button Command="{Binding Path=DataContext.RegisterCommand, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20"
                                Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
@@ -31,7 +31,7 @@
                     <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Register Network" />
                 </StackPanel>
             </Button>
-            <Button Command="{Binding Path=DataContext.SettingsCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
+            <Button Command="{Binding Path=DataContext.SettingsCommand, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20"
                                Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
@@ -42,7 +42,7 @@
                     <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Settings" />
                 </StackPanel>
             </Button>
-            <Button Command="{Binding Path=DataContext.HelpCommand, RelativeSource={RelativeSource AncestorType={x:Type controls:MetroWindow}}}">
+            <Button Command="{Binding Path=DataContext.HelpCommand, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}">
                 <StackPanel Orientation="Horizontal">
                     <Rectangle Width="20" Height="20"
                                Fill="{Binding Path=Foreground, RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type Button}}}">
@@ -53,8 +53,8 @@
                     <TextBlock Margin="4 0 0 0" VerticalAlignment="Center" Text="Help" />
                 </StackPanel>
             </Button>
-        </controls:WindowCommands>
-    </controls:MetroWindow.RightWindowCommands>
+        </mah:WindowCommands>
+    </mah:MetroWindow.RightWindowCommands>
     <DockPanel LastChildFill="True">
         <tb:TaskbarIcon x:Name="NotifyIcon"
                         IconSource="{StaticResource AppIcon}"
@@ -117,12 +117,16 @@
                 <ListBox  BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
-                            <controls:Tile Title="{Binding Name, Mode=OneTime }" 
+                            <mah:Tile Title="{Binding Name, Mode=OneTime }" 
                                                    Width="200"
                                                    Height="100" 
                                                    Count="{Binding Active}"
                                                    KeepDragging="True" 
-                                                   VerticalTitleAlignment="Top" />
+                                                   VerticalTitleAlignment="Top">
+                                <!--<mah:Tile.Background>
+                                    <ImageBrush ImageSource="Images/windesktop.jpg" />
+                                </mah:Tile.Background>-->
+                            </mah:Tile>
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
@@ -130,13 +134,13 @@
         </Grid>
         <!--<ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"></ScrollViewer>-->
     </DockPanel>
-    <controls:MetroWindow.Flyouts>
-        <controls:FlyoutsControl>
-            <controls:Flyout Header="Register" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsRegisterOpened}" CloseButtonIsCancel="True">
+    <mah:MetroWindow.Flyouts>
+        <mah:FlyoutsControl>
+            <mah:Flyout Header="Register" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsRegisterOpened}" CloseButtonIsCancel="True">
                 <StackPanel Margin="8">
                     <WrapPanel HorizontalAlignment="Left">
                         <wpf:LoadingIndicator Margin="4" VerticalAlignment="Top" Visibility="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToVis}}" IsActive="{Binding IsBusy}" Foreground="OrangeRed" Style="{DynamicResource LoadingIndicatorArcsStyleKey}" />
-                        <controls:SplitButton  Margin="8" 
+                        <mah:SplitButton  Margin="8" 
                                                Icon="{DynamicResource appbar_network}"
                                                HorizontalContentAlignment="Left"
                                                HorizontalAlignment="Center"
@@ -148,25 +152,25 @@
                                                FontSize="16"
                                                VerticalAlignment="Center" />
                     </WrapPanel>
-                    <TextBox Margin="8" controls:TextBoxHelper.Watermark="User name" controls:TextBoxHelper.ClearTextButton="True" Text=""/>
-                    <PasswordBox controls:PasswordBoxHelper.CapsLockWarningToolTip="Caps lock ON" Margin="8" controls:TextBoxHelper.Watermark="Password" 
-                                 controls:TextBoxHelper.ClearTextButton="True"
+                    <TextBox Margin="8" mah:TextBoxHelper.Watermark="User name" mah:TextBoxHelper.ClearTextButton="True" Text=""/>
+                    <PasswordBox mah:PasswordBoxHelper.CapsLockWarningToolTip="Caps lock ON" Margin="8" mah:TextBoxHelper.Watermark="Password" 
+                                 mah:TextBoxHelper.ClearTextButton="True"
                                  Password="">
                     </PasswordBox>
                     <CheckBox x:Name="CbPreferred" Margin="8">Preferred</CheckBox>
-                    <controls:NumericUpDown Minimum="0" Maximum="3600" Interval="1" StringFormat="G0"
-                                            controls:TextBoxHelper.Watermark="Re check interval in minutes"
+                    <mah:NumericUpDown Minimum="0" Maximum="3600" Interval="1" StringFormat="G0"
+                                            mah:TextBoxHelper.Watermark="Re check interval in minutes"
                                             Speedup="True"
                                             Visibility="{Binding IsChecked,ElementName=CbPreferred,Converter={StaticResource BoolToVis}}"/>
                     <Button Margin="8" HorizontalAlignment="Right" Width="100">Save</Button>
                 </StackPanel>
-            </controls:Flyout>
-            <controls:Flyout Header="Settings" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsSettingsOpened}" CloseButtonIsCancel="True">
+            </mah:Flyout>
+            <mah:Flyout Header="Settings" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsSettingsOpened}" CloseButtonIsCancel="True">
                 <!-- Your custom content here -->
-            </controls:Flyout>
-            <controls:Flyout Header="Help" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsHelpOpened}" CloseButtonIsCancel="True">
+            </mah:Flyout>
+            <mah:Flyout Header="Help" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsHelpOpened}" CloseButtonIsCancel="True">
                 <!-- Your custom content here -->
-            </controls:Flyout>
-        </controls:FlyoutsControl>
-    </controls:MetroWindow.Flyouts>
-</controls:MetroWindow>
+            </mah:Flyout>
+        </mah:FlyoutsControl>
+    </mah:MetroWindow.Flyouts>
+</mah:MetroWindow>
