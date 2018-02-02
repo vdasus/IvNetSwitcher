@@ -113,8 +113,8 @@
                     </Button>
                 </ToolBar>
             </ToolBarTray>
-            <StackPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
-                <ListBox BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
+            <WrapPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
+                <ListBox  BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
                     <ListBox.ItemTemplate>
                         <DataTemplate>
                             <controls:Tile Title="{Binding Name, Mode=OneTime }" 
@@ -126,19 +126,8 @@
                         </DataTemplate>
                     </ListBox.ItemTemplate>
                 </ListBox>
-                <controls:Tile Margin="10"
-                                       Title="" 
-                                   Width="Auto"
-                                   Height="100" 
-                                   Background="Transparent"
-                                       Foreground="#FF1585B5"
-                                   BorderThickness="1"
-                                   Count="ADD"
-                                   KeepDragging="True" 
-                                   VerticalTitleAlignment="Top" />
-            </StackPanel>
+            </WrapPanel>
         </Grid>
-
         <!--<ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"></ScrollViewer>-->
     </DockPanel>
     <controls:MetroWindow.Flyouts>
