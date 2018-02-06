@@ -94,6 +94,7 @@ namespace IvNetSwitcher
                                   + (net.IsSecure
                                       ? "secure"
                                       : "insecure")
+                                  + " "
                                   + (net.IsConnected
                                       ? "connected"
                                       : "disconnected");
