@@ -19,6 +19,7 @@ namespace IvNetSwitcher.UI.ViewModel
     public class MainViewModel: PropertyChangedBase
     {
         private const string CWAIT_MSG = "Wait, please...";
+        
         private static readonly Logger _log = LogManager.GetCurrentClassLogger();
 
         private readonly INetService _net;
@@ -41,6 +42,7 @@ namespace IvNetSwitcher.UI.ViewModel
 
         public RelayCommand AddProfileCommand { get; set; }
         public RelayCommand GoPlayCommand { get; set; }
+        public RelayCommand GoStopCommand { get; set; }
         public RelayCommand GoNextCommand { get; set; }
         public RelayCommand EditProfileCommand { get; set; }
         public RelayCommand DeleteProfileCommand { get; set; }
@@ -122,7 +124,8 @@ namespace IvNetSwitcher.UI.ViewModel
             {
                 await Task.Run(() =>
                 {
-                    SetBusyIndicator(true, "Running ...");
+                    _isMonitoring = true;
+                    SetBusyIndicator(true, "Monitoring ...");
                     while (_isMonitoring)
                     {
                         var go = _appSvc.Run(new Uri(Settings.Default.HostToPing), Settings.Default.Retry);
@@ -133,10 +136,22 @@ namespace IvNetSwitcher.UI.ViewModel
                         };
                         Thread.Sleep(TimeSpan.FromSeconds(Settings.Default.DelayInSec));
                     }
+                    SetBusyIndicator(false);
                 });
             });
 
-            GoNextCommand = new RelayCommand(() => { });
+            GoStopCommand = new RelayCommand(() =>
+            {
+                _isMonitoring = false;
+                StatusText = CWAIT_MSG;
+            });
+
+            GoNextCommand = new RelayCommand(() =>
+            {
+                var rez = _appSvc.GoNext();
+                if (rez.IsFailure) StatusText = rez.Error;
+            });
+
             EditProfileCommand = new RelayCommand(() => { });
             DeleteProfileCommand = new RelayCommand(() => { });
             SaveSettingsCommand = new RelayCommand(() =>
@@ -199,7 +214,7 @@ namespace IvNetSwitcher.UI.ViewModel
             }
             else
             {
-                StatusText = (StatusText.Contains(CWAIT_MSG)) ? string.Empty : StatusText;
+                StatusText = StatusText.Contains(CWAIT_MSG) ? string.Empty : StatusText;
                 IsBusy = false;
                 Messenger.Default.Send(new NotificationMessage(this, "", "SetNormalTray"));
             }

@@ -48,10 +48,12 @@ namespace IvNetSwitcher.Core.Domain
             return Items.Select(zz => zz.GetProfileDto()).ToList();
         }
 
-        public Result<Profile> CircularGetNextProfile()
+        public Result<Profile> CircularTakeNextProfile()
         {
             _currentProfile = Items.FirstOrDefault(x => x.Id > _currentProfile.Id) ?? Items.OrderBy(x => x.Id).FirstOrDefault();
-            return _currentProfile != null ? Result.Ok(_currentProfile) : Result.Fail<Profile>("No profiles");
+            return _currentProfile == null
+                ? Result.Fail<Profile>("No profiles")
+                : Result.Ok(_currentProfile);
         }
 
         private IList<Profile> FillProfiles(IEnumerable<ProfileDto> items)

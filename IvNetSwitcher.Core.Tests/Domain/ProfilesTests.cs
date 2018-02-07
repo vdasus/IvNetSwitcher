@@ -49,10 +49,10 @@ namespace IvNetSwitcher.Core.Tests.Domain
         {
             //Arrange
             //Act
-            var sut0 = _sutObjects.CircularGetNextProfile();
-            var sut1 = _sutObjects.CircularGetNextProfile();
-            var sut2 = _sutObjects.CircularGetNextProfile();
-            var sut3 = _sutObjects.CircularGetNextProfile();
+            var sut0 = _sutObjects.CircularTakeNextProfile();
+            var sut1 = _sutObjects.CircularTakeNextProfile();
+            var sut2 = _sutObjects.CircularTakeNextProfile();
+            var sut3 = _sutObjects.CircularTakeNextProfile();
 
             //Assert
             sut0.Value.Id.Should().Be(3);

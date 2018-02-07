@@ -16,7 +16,6 @@ namespace IvNetSwitcher.Core.Abstractions
         void RegisterProfile(Profile profile);
         Result DeleteProfile(int id);
 
-        Result GoPlay();
         Result GoNext();
 
         Result Run(Uri hostToPing, int retry);

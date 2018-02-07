@@ -81,7 +81,7 @@
                 <wpf:LoadingIndicator Margin="4" VerticalAlignment="Top" Visibility="{Binding IsBusy, Mode=OneWay, Converter={StaticResource BoolToVis}}" IsActive="{Binding IsBusy}" Foreground="OrangeRed" Style="{DynamicResource LoadingIndicatorArcsStyleKey}" />
             </StatusBarItem>
             <StatusBarItem Margin="15px 0 0 0">
-                <Label Content="{Binding StatusText}" />
+                <Label FontSize="14" Foreground="White" Content="{Binding StatusText}" />
             </StatusBarItem>
         </StatusBar>
         <Grid>
@@ -96,6 +96,9 @@
                 <ToolBar OverflowMode="Never" Background="Transparent">
                     <Button Width="48" Height="48" Command="{Binding GoPlayCommand, Mode=OneTime}" ToolTip="Start monitoring">
                         <Image Source="{DynamicResource PlayPicture}" />
+                    </Button>
+                    <Button Width="48" Height="48" Command="{Binding GoStopCommand, Mode=OneTime}" ToolTip="Stop monitoring">
+                        <Image Source="{DynamicResource StopPicture}" />
                     </Button>
                     <Button Width="48" Height="48" Command="{Binding GoNextCommand, Mode=OneTime}" ToolTip="Connect to next network">
                         <Image Source="{DynamicResource NexPlayPicture}" />
