@@ -24,7 +24,7 @@ namespace IvNetSwitcher.Core.Tests.AppServices
                 };
 
             //Assert
-            sut.ShouldNotThrow();
+            sut.Should().NotThrow();
         }
     }
 }

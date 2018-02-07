@@ -17,7 +17,7 @@ namespace IvNetSwitcher.Core.Tests.DomainServices
             Action sut = () => { new WiFiService(); };
             //Act
             //Assert
-            sut.ShouldThrow<ApplicationException>();
+            sut.Should().Throw<ApplicationException>();
         }
 #else
         [Fact]
