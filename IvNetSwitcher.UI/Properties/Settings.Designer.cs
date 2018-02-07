@@ -23,34 +23,43 @@ namespace IvNetSwitcher.UI.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("0")]
-        public string Delay {
-            get {
-                return ((string)(this["Delay"]));
-            }
-        }
-        
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("http://google.com")]
         public string HostToPing {
             get {
                 return ((string)(this["HostToPing"]));
             }
+            set {
+                this["HostToPing"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("261A2220-C66E-496E-9DC0-5FF5174B7711")]
+        [global::System.Configuration.DefaultSettingValueAttribute("10")]
+        public int DelayInSec {
+            get {
+                return ((int)(this["DelayInSec"]));
+            }
+            set {
+                this["DelayInSec"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("730DE481-2077-4D59-AF65-543669121202")]
         public string EncSalt {
             get {
                 return ((string)(this["EncSalt"]));
             }
+            set {
+                this["EncSalt"] = value;
+            }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"
           <ArrayOfProfileDto xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
@@ -58,25 +67,31 @@ namespace IvNetSwitcher.UI.Properties {
               <Id>1</Id>
               <Name>name</Name>
               <User>user</User>
-              <Password>IbP8X/dRF+c3YeCDtBg4d7ZzhQvhYDIZirJ9gAt/eoXPgH3QOWGWpeG65ZfrzPb3d9K2sY17bojnsYck3gaWYD+F+vq4jrVqvrh0fei3l5gWkGiBjP0xNXGw7Nm3ds/Y</Password>
+              <Password>Y7kMhDfy6OBXqP2BhzkQiIobGxyYdNtZVxCv3z3sZNiER/SAvYifycBy6yj5rUMrBZ3dwe9YarugZNVWgintZeRK8o64C9ggi/8rLEih/kHxklsOV4VLm1ranm9Z9DsJ</Password>
               <Domain>domain</Domain>
               <Comment>comment</Comment>
               <Active>false</Active>
-            </ProfileDto>
-            <ProfileDto>
-              <Id>2</Id>
-              <Name>name2</Name>
-              <User>user2</User>
-              <Password>IbP8X/dRF+c3YeCDtBg4d7ZzhQvhYDIZirJ9gAt/eoXPgH3QOWGWpeG65ZfrzPb3d9K2sY17bojnsYck3gaWYD+F+vq4jrVqvrh0fei3l5gWkGiBjP0xNXGw7Nm3ds/Y</Password>
-              <Domain>domain2</Domain>
-              <Comment>comment2</Comment>
-              <Active>true</Active>
             </ProfileDto>
           </ArrayOfProfileDto>
         ")]
         public string Profiles {
             get {
                 return ((string)(this["Profiles"]));
+            }
+            set {
+                this["Profiles"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("3")]
+        public int Retry {
+            get {
+                return ((int)(this["Retry"]));
+            }
+            set {
+                this["Retry"] = value;
             }
         }
     }

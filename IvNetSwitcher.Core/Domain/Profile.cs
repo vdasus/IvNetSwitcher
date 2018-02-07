@@ -1,12 +1,13 @@
 ﻿using CSharpFunctionalExtensions;
 using IvNetSwitcher.Core.Abstractions;
-using IvNetSwitcher.Core.Shared;
+using IvNetSwitcher.Core.Dto;
 
 namespace IvNetSwitcher.Core.Domain
 {
     public class Profile
     {
-        private readonly INetService _svc;
+        private readonly INetService _netsvc;
+        private readonly IUtilsService _svc;
         public int Id { get; }
         public string Name { get; }
         public string User { get; }
@@ -15,15 +16,17 @@ namespace IvNetSwitcher.Core.Domain
         public string Comment { get; }
         public bool Active { get; }
 
-        public bool IsConnected => _svc.CheckIsConnected().IsSuccess;
+        public bool IsConnected => _netsvc.CheckIsConnected().IsSuccess;
 
-        public Profile(INetService svc, int id, string name, string user, string password, string domain, string comment, bool active, string salt)
+        public Profile(INetService netsvc, IUtilsService svc, int id, string name, string user, string password, string domain, string comment, bool active)
         {
+            _netsvc = netsvc;
             _svc = svc;
+
             Id = id;
             Name = name;
             User = user;
-            Password = Utils.GetDecryptedString(password, salt); ;
+            Password = password;
             Domain = domain;
             Comment = comment;
             Active = active;
@@ -31,8 +34,13 @@ namespace IvNetSwitcher.Core.Domain
 
         public Result Connect()
         {
-            _svc.Connect(Id, User, Password, Domain);
-            return _svc.CheckIsConnected();
+            _netsvc.Connect(Id, User, _svc.GetDecryptedString(Password), Domain);
+            return _netsvc.CheckIsConnected();
+        }
+
+        public ProfileDto GetProfileDto()
+        {
+            return new ProfileDto(Id, Name, User, _svc.GetEncryptedString(Password), Domain, Comment, Active);
         }
     }
 }

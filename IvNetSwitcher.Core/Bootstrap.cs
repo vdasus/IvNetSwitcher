@@ -14,6 +14,7 @@ namespace IvNetSwitcher.Core
             Container = new Container();
             
             Container.Register<IAppService, AppService>(Reuse.Singleton);
+            Container.Register<IUtilsService, UtilsService>(Reuse.Singleton);
 #if DEBUG
             Container.Register<INetService, FakeService>(Reuse.Transient);
 #else

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using CSharpFunctionalExtensions;
 using IvNetSwitcher.Core.Domain;
+using IvNetSwitcher.Core.Dto;
 
 namespace IvNetSwitcher.Core.Abstractions
 {
@@ -9,14 +10,14 @@ namespace IvNetSwitcher.Core.Abstractions
     {
         Profiles LoadData(Profiles profiles);
 
-        IReadOnlyList<Network> GetNetworks();
-        Result RegisterProfile();
-        Result EditProfile();
-        Result DeleteProfile();
+        IReadOnlyList<ProfileDto> GetProfilesDtos();
 
-        Result GoPlay();
+        IReadOnlyList<Network> GetNetworks();
+        void RegisterProfile(Profile profile);
+        Result DeleteProfile(int id);
+
         Result GoNext();
 
-        void Run(Uri hostToPing, int delay, int retry, int times = 0);
+        Result Run(Uri hostToPing, int retry);
     }
 }

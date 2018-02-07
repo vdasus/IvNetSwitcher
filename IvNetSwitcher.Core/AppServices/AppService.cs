@@ -2,10 +2,10 @@
 using System.Collections.Generic;
 using System.Net.NetworkInformation;
 using System.Text;
-using System.Threading;
 using CSharpFunctionalExtensions;
 using IvNetSwitcher.Core.Abstractions;
 using IvNetSwitcher.Core.Domain;
+using IvNetSwitcher.Core.Dto;
 using NLog;
 
 namespace IvNetSwitcher.Core.AppServices
@@ -29,60 +29,88 @@ namespace IvNetSwitcher.Core.AppServices
             return _profiles;
         }
 
+        public IReadOnlyList<ProfileDto> GetProfilesDtos()
+        {
+            return _profiles.GetProfilesDtos();
+        }
+
         public IReadOnlyList<Network> GetNetworks()
         {
             return _ds.ListAvailableNetworks();
         }
 
-        public Result RegisterProfile()
+        public void RegisterProfile(Profile profile)
         {
-            throw new System.NotImplementedException();
+            _profiles.AddProfile(profile);
         }
 
-        public Result EditProfile()
+        public Result DeleteProfile(int id)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Result DeleteProfile()
-        {
-            throw new System.NotImplementedException();
-        }
-
-        public Result GoPlay()
-        {
-            throw new System.NotImplementedException();
+            return _profiles.DeleteProfile(id);
         }
 
         public Result GoNext()
         {
-            throw new System.NotImplementedException();
+            var nextProfile = _profiles.CircularTakeNextProfile();
+            return nextProfile.IsSuccess ? nextProfile.Value.Connect() : nextProfile;
         }
 
-        public void Run(Uri hostToPing, int delay, int retry, int times = 0)
+        public Result Run(Uri hostToPing, int retry)
         {
-            // TODO code just to check
-            int i = 0;
-            while (times == 0 || i < times)
+            try
             {
-                _log.Trace($"ping to {_profiles.GetCurrentProfile().Name}");
-                var rez = MakePing(hostToPing);
-                _log.Trace("ping successful");
+                var rez = Result.Ok();
+                var curr = _profiles.GetCurrentProfile();
+                if (curr.IsFailure) return Result.Fail(curr.Error);
 
-                if (rez.IsFailure)
+                _log.Trace($"ping to {curr.Value.Name}");
+                MakePing(hostToPing)
+                    .OnSuccess(() =>
+                        _log.Trace("ping successful"))
+                    .OnFailure(() =>
+                    {
+                        _log.Error($"Failure ping to {hostToPing.AbsolutePath} with {curr.Value.Name}");
+                        rez = TryReconnect(retry);
+                    });
+                return rez;
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                return Result.Fail(ex.Message);
+            }
+        }
+
+        private Result TryReconnect(int retry)
+        {
+            try
+            {
+                var i = 0;
+                while (i < _profiles.Items.Count)
                 {
-                    _log.Error($"Failure connecting to {_profiles.GetCurrentProfile().Name}");
-                    var prof = _profiles.CircularGetNextProfile();
+                    var prof = _profiles.CircularTakeNextProfile();
+                    if (prof.IsFailure) break;
 
                     for (int j = 0; j < retry; j++)
                     {
-                        _log.Debug($"Trying to connect to {prof.Name}");
-                        prof.Connect();
-                        if (prof.IsConnected) break;
+                        _log.Debug($"{j + 1} try to connect to {prof.Value.Name}");
+                        if (prof.Value.Connect().IsFailure) continue;
+
+                        _log.Debug($"Connected to {prof.Value.Name}");
+                        return Result.Ok();
                     }
-                };
-                Thread.Sleep(TimeSpan.FromSeconds(delay));
-                i++;
+
+                    _log.Error($"Connect to {prof.Value.Name} failed");
+                    i++;
+                }
+
+                _log.Error("Can't reconnect");
+                return Result.Fail("Can't reconnect");
+            }
+            catch (Exception ex)
+            {
+                _log.Error(ex);
+                return Result.Fail(ex.Message);
             }
         }
 
@@ -96,7 +124,7 @@ namespace IvNetSwitcher.Core.AppServices
             PingOptions options = new PingOptions { DontFragment = true };
 
             PingReply reply = pingSender.Send(hostToPing.Host, timeout, buffer, options);
-            return reply.Status == IPStatus.Success ? Result.Ok() : Result.Fail("Can't connect");
+            return reply.Status == IPStatus.Success ? Result.Ok() : Result.Fail("Can't make ping");
         }
 
         #endregion

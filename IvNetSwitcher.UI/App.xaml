@@ -62,6 +62,11 @@
                     <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Lock.png" />
                 </DrawingImage.Drawing>
             </DrawingImage>
+            <DrawingImage x:Key="StopPicture">
+                <DrawingImage.Drawing>
+                    <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Stop.png" />
+                </DrawingImage.Drawing>
+            </DrawingImage>
 
             <!--<DrawingImage x:Key="StartImage">
                 <DrawingImage.Drawing>

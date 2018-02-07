@@ -20,7 +20,7 @@ namespace IvNetSwitcher.Core.Tests.AppServices
                 () =>
                 {
                     ws.LoadData(ProfilesFactory.CreateProfiles());
-                    ws.Run(new Uri("https://www.google.com"), 1, 1, 1);
+                    ws.Run(new Uri("https://www.google.com"), 1);
                 };
 
             //Assert
