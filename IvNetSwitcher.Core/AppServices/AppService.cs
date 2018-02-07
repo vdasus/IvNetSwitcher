@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
@@ -61,39 +60,45 @@ namespace IvNetSwitcher.Core.AppServices
             throw new System.NotImplementedException();
         }
 
-        public void Run(Uri hostToPing, int delay, int retry, int times = 0)
+        public Result Run(Uri hostToPing, int retry)
         {
-            int i = 0;
-            while (times == 0 || i < times)
-            {
-                _log.Trace($"ping to {_profiles.GetCurrentProfile().Name}");
-                var rez = MakePing(hostToPing)
-                    .OnFailure(() =>
-                    {
-                        _log.Error(
-                            $"Failure ping to {hostToPing.AbsolutePath} with {_profiles.GetCurrentProfile().Name}");
-                        TryReconnect(hostToPing, retry);
-                    })
-                    .OnSuccess(() => 
-                        _log.Trace("ping successful"));
-                
-                Thread.Sleep(TimeSpan.FromSeconds(delay));
-                i++;
-            }
+            _log.Trace($"ping to {_profiles.GetCurrentProfile().Name}");
+            var rez = MakePing(hostToPing)
+                .OnFailure(() =>
+                {
+                    _log.Error(
+                        $"Failure ping to {hostToPing.AbsolutePath} with {_profiles.GetCurrentProfile().Name}");
+                    TryReconnect(hostToPing, retry);
+                })
+                .OnSuccess(() =>
+                    _log.Trace("ping successful"));
+            return _profiles.GetCurrentProfile().IsConnected
+                ? Result.Ok()
+                : Result.Fail($"Can't connect to any");
         }
 
         private void TryReconnect(Uri hostToPing, int retry)
         {
-            var prof = _profiles.CircularGetNextProfile();
-
-            for (int j = 0; j < retry; j++)
+            var i = 0;
+            while (i < _profiles.Items.Count)
             {
-                _log.Debug($"{j+1} try to connect to {prof.Name}");
-                if(prof.Connect().IsSuccess) break;
-            }
+                var prof = _profiles.CircularGetNextProfile();
 
-            if (prof.IsConnected) _log.Debug($"Connect to {prof.Name} successful");
-            else _log.Error($"Connect to {prof.Name} failed");
+                for (int j = 0; j < retry; j++)
+                {
+                    _log.Debug($"{j + 1} try to connect to {prof.Name}");
+                    if (prof.Connect().IsSuccess) break;
+                }
+
+                if (prof.IsConnected)
+                {
+                    _log.Debug($"Connected to {prof.Name}");
+                    return;
+                }
+
+                _log.Error($"Connect to {prof.Name} failed");
+                i++;
+            }
         }
 
         #region Privates region

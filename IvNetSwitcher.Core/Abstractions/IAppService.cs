@@ -19,6 +19,6 @@ namespace IvNetSwitcher.Core.Abstractions
         Result GoPlay();
         Result GoNext();
 
-        void Run(Uri hostToPing, int delay, int retry, int times = 0);
+        Result Run(Uri hostToPing, int retry);
     }
 }
