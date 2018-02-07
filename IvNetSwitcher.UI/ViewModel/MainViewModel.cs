@@ -181,11 +181,13 @@ namespace IvNetSwitcher.UI.ViewModel
             {
                 StatusText = message;
                 IsBusy = true;
+                Messenger.Default.Send(new NotificationMessage(this, "", "SetActiveTray"));
             }
             else
             {
                 StatusText = (StatusText.Contains(CWAIT_MSG)) ? string.Empty : StatusText;
                 IsBusy = false;
+                Messenger.Default.Send(new NotificationMessage(this, "", "SetNormalTray"));
             }
         }
     }

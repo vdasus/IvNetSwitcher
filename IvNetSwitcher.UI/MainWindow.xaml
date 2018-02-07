@@ -59,8 +59,8 @@
                         Visibility="Visible"
                         ToolTipText="{Binding Caption, Mode=OneTime}"
                         MenuActivation="RightClick"
-                        PopupActivation="LeftClick"
                         DoubleClickCommand="{Binding MinMaxCommand}" >
+            <!--PopupActivation="LeftClick"
             <tb:TaskbarIcon.TrayPopup>
                 <Border Background="White"
                             BorderBrush="Orange"
@@ -69,7 +69,7 @@
                             Width="750"
                             Height="Auto">
                 </Border>
-            </tb:TaskbarIcon.TrayPopup>
+            </tb:TaskbarIcon.TrayPopup>-->
             <tb:TaskbarIcon.ContextMenu>
                 <ContextMenu Background="BlanchedAlmond">
                     <MenuItem Header="Exit" Click="MenuItem_OnClick" />

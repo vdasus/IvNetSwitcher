@@ -42,16 +42,23 @@ namespace IvNetSwitcher.UI
                     break;
 
                 case "SetActiveTray":
-                    NotifyIcon.IconSource = new BitmapImage(new Uri(
-                        "pack://application:,,,/gtemper;component/Resources/IvNetSwitcher_active.ico",
-                        UriKind.Absolute));
+                    Dispatcher.InvokeOrExecute(() =>
+                    {
+                        NotifyIcon.IconSource = new BitmapImage(new Uri(
+                            "pack://application:,,,/IvNetSwitcher.UI;component/Resources/IvNetSwitcher_active.ico",
+                            UriKind.Absolute));
+                    });
                     break;
 
                 case "SetNormalTray":
-                    NotifyIcon.IconSource = new BitmapImage(new Uri(
-                        "pack://application:,,,/gtemper;component/Resources/IvNetSwitcher.ico",
-                        UriKind.Absolute));
+                    Dispatcher.InvokeOrExecute(() =>
+                    {
+                        NotifyIcon.IconSource = new BitmapImage(new Uri(
+                            "pack://application:,,,/IvNetSwitcher.UI;component/Resources/IvNetSwitcher.ico",
+                            UriKind.Absolute));
+                    });
                     break;
+
                 case "ToggleWindow":
                     if (!IsVisible)
                         Show();
