@@ -113,7 +113,14 @@ namespace IvNetSwitcher.UI.ViewModel
                 
             });
 
-            GoPlayCommand = new RelayCommand(() => { });
+            GoPlayCommand = new RelayCommand(async () =>
+            {
+                await Task.Run(() =>
+                {
+                    _appSvc.Run(new Uri(Settings.Default.HostToPing), int.Parse(Settings.Default.Delay), 3, 0);
+                });
+            });
+
             GoNextCommand = new RelayCommand(() => { });
             EditProfileCommand = new RelayCommand(() => { });
             DeleteProfileCommand = new RelayCommand(() => { });

@@ -73,7 +73,7 @@ namespace IvNetSwitcher.Core.AppServices
 
                 if (rez.IsFailure)
                 {
-                    _log.Error($"Failure connecting to {_profiles.GetCurrentProfile().Name}");
+                    _log.Error($"Failure ping to {hostToPing.AbsolutePath} with {_profiles.GetCurrentProfile().Name}");
                     var prof = _profiles.CircularGetNextProfile();
 
                     for (int j = 0; j < retry; j++)
