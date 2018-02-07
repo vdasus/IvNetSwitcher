@@ -63,29 +63,37 @@ namespace IvNetSwitcher.Core.AppServices
 
         public void Run(Uri hostToPing, int delay, int retry, int times = 0)
         {
-            // TODO code just to check
             int i = 0;
             while (times == 0 || i < times)
             {
                 _log.Trace($"ping to {_profiles.GetCurrentProfile().Name}");
-                var rez = MakePing(hostToPing);
-                _log.Trace("ping successful");
-
-                if (rez.IsFailure)
-                {
-                    _log.Error($"Failure ping to {hostToPing.AbsolutePath} with {_profiles.GetCurrentProfile().Name}");
-                    var prof = _profiles.CircularGetNextProfile();
-
-                    for (int j = 0; j < retry; j++)
+                var rez = MakePing(hostToPing)
+                    .OnFailure(() =>
                     {
-                        _log.Debug($"Trying to connect to {prof.Name}");
-                        prof.Connect();
-                        if (prof.IsConnected) break;
-                    }
-                };
+                        _log.Error(
+                            $"Failure ping to {hostToPing.AbsolutePath} with {_profiles.GetCurrentProfile().Name}");
+                        TryReconnect(hostToPing, retry);
+                    })
+                    .OnSuccess(() => 
+                        _log.Trace("ping successful"));
+                
                 Thread.Sleep(TimeSpan.FromSeconds(delay));
                 i++;
             }
+        }
+
+        private void TryReconnect(Uri hostToPing, int retry)
+        {
+            var prof = _profiles.CircularGetNextProfile();
+
+            for (int j = 0; j < retry; j++)
+            {
+                _log.Debug($"{j+1} try to connect to {prof.Name}");
+                if(prof.Connect().IsSuccess) break;
+            }
+
+            if (prof.IsConnected) _log.Debug($"Connect to {prof.Name} successful");
+            else _log.Error($"Connect to {prof.Name} failed");
         }
 
         #region Privates region

@@ -117,6 +117,7 @@ namespace IvNetSwitcher.UI.ViewModel
             {
                 await Task.Run(() =>
                 {
+                    SetBusyIndicator(true, "Running ...");
                     _appSvc.Run(new Uri(Settings.Default.HostToPing), int.Parse(Settings.Default.Delay), 3, 0);
                 });
             });
