@@ -94,13 +94,11 @@ namespace IvNetSwitcher.Core.AppServices
                     for (int j = 0; j < retry; j++)
                     {
                         _log.Debug($"{j + 1} try to connect to {prof.Value.Name}");
-                        if (prof.Value.Connect().IsSuccess) break;
-                    }
-
-                    if (prof.Value.IsConnected)
-                    {
-                        _log.Debug($"Connected to {prof.Value.Name}");
-                        return Result.Ok();
+                        if (prof.Value.Connect().IsSuccess)
+                        {
+                            _log.Debug($"Connected to {prof.Value.Name}");
+                            return Result.Ok();
+                        };
                     }
 
                     _log.Error($"Connect to {prof.Value.Name} failed");
