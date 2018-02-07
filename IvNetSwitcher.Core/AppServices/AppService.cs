@@ -94,17 +94,17 @@ namespace IvNetSwitcher.Core.AppServices
                     for (int j = 0; j < retry; j++)
                     {
                         _log.Debug($"{j + 1} try to connect to {prof.Value.Name}");
-                        if (prof.Value.Connect().IsSuccess)
-                        {
-                            _log.Debug($"Connected to {prof.Value.Name}");
-                            return Result.Ok();
-                        };
+                        if (prof.Value.Connect().IsFailure) continue;
+
+                        _log.Debug($"Connected to {prof.Value.Name}");
+                        return Result.Ok();
                     }
 
                     _log.Error($"Connect to {prof.Value.Name} failed");
                     i++;
                 }
 
+                _log.Error("Can't reconnect");
                 return Result.Fail("Can't reconnect");
             }
             catch (Exception ex)

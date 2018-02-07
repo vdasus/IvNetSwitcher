@@ -136,6 +136,7 @@ namespace IvNetSwitcher.UI.ViewModel
                         };
                         Thread.Sleep(TimeSpan.FromSeconds(Settings.Default.DelayInSec));
                     }
+                    StatusText = CWAIT_MSG;
                     SetBusyIndicator(false);
                 });
             });
