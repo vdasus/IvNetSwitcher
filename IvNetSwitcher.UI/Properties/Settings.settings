@@ -11,7 +11,7 @@
     <Setting Name="EncSalt" Type="System.String" Scope="Application">
       <Value Profile="(Default)">261A2220-C66E-496E-9DC0-5FF5174B7711</Value>
     </Setting>
-    <Setting Name="Profiles" Type="System.String" Scope="Application">
+    <Setting Name="Profiles" Type="System.String" Scope="User">
       <Value Profile="(Default)">
           &lt;ArrayOfProfileDto xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema"&gt;
             &lt;ProfileDto&gt;

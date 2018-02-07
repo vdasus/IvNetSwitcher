@@ -1,11 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net.NetworkInformation;
 using System.Text;
 using System.Threading;
 using CSharpFunctionalExtensions;
 using IvNetSwitcher.Core.Abstractions;
 using IvNetSwitcher.Core.Domain;
+using IvNetSwitcher.Core.Dto;
 using NLog;
 
 namespace IvNetSwitcher.Core.AppServices
@@ -29,24 +31,24 @@ namespace IvNetSwitcher.Core.AppServices
             return _profiles;
         }
 
+        public IReadOnlyList<ProfileDto> GetProfilesDtos()
+        {
+            return _profiles.GetProfilesDtos();
+        }
+
         public IReadOnlyList<Network> GetNetworks()
         {
             return _ds.ListAvailableNetworks();
         }
 
-        public Result RegisterProfile()
+        public void RegisterProfile(Profile profile)
         {
-            throw new System.NotImplementedException();
+            _profiles.AddProfile(profile);
         }
 
-        public Result EditProfile()
+        public Result DeleteProfile(int id)
         {
-            throw new System.NotImplementedException();
-        }
-
-        public Result DeleteProfile()
-        {
-            throw new System.NotImplementedException();
+            return _profiles.DeleteProfile(id);
         }
 
         public Result GoPlay()

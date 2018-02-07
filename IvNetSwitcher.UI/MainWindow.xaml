@@ -4,8 +4,6 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:dialog="clr-namespace:MahApps.Metro.Controls.Dialogs;assembly=MahApps.Metro"
-        xmlns:local="clr-namespace:IvNetSwitcher.UI"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:wpf="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
         mc:Ignorable="d"
@@ -92,11 +90,9 @@
                 <RowDefinition />
             </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
+                <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
-            <ToolBarTray Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"  Orientation="Horizontal">
+            <ToolBarTray Grid.Row="0" Grid.Column="0"  Orientation="Horizontal">
                 <ToolBar OverflowMode="Never" Background="Transparent">
                     <Button Width="48" Height="48" Command="{Binding GoPlayCommand, Mode=OneTime}" ToolTip="Start monitoring">
                         <Image Source="{DynamicResource PlayPicture}" />
@@ -113,24 +109,29 @@
                     </Button>
                 </ToolBar>
             </ToolBarTray>
-            <WrapPanel Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="3" >
-                <ListBox  BorderThickness="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
-                    <ListBox.ItemTemplate>
+                <ItemsControl Grid.Row="1" Grid.Column="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
+                    <ItemsControl.ItemsPanel>
+                        <ItemsPanelTemplate>
+                            <WrapPanel Orientation="Horizontal" ></WrapPanel>
+                        </ItemsPanelTemplate>
+                    </ItemsControl.ItemsPanel>
+                    <ItemsControl.ItemTemplate>
                         <DataTemplate>
                             <mah:Tile Title="{Binding Name, Mode=OneTime }" 
                                                    Width="200"
                                                    Height="100" 
                                                    Count="{Binding Active}"
                                                    KeepDragging="True" 
-                                                   VerticalTitleAlignment="Top">
+                                                   VerticalTitleAlignment="Top"
+                                      Command="{Binding Path=DataContext.PressTileCommand, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}"
+                                      CommandParameter="{Binding Id}">
                                 <!--<mah:Tile.Background>
                                     <ImageBrush ImageSource="Images/windesktop.jpg" />
                                 </mah:Tile.Background>-->
                             </mah:Tile>
                         </DataTemplate>
-                    </ListBox.ItemTemplate>
-                </ListBox>
-            </WrapPanel>
+                    </ItemsControl.ItemTemplate>
+                </ItemsControl>
         </Grid>
         <!--<ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"></ScrollViewer>-->
     </DockPanel>
@@ -146,23 +147,22 @@
                                                HorizontalAlignment="Center"
                                                VerticalContentAlignment="Center"
                                                Width="Auto"
-                                               SelectedIndex="0"
                                                ItemsSource="{Binding AvailableNets}"
+                                               SelectedItem="{Binding SelectedNet, Mode=TwoWay}"
+                                          SelectedIndex="0"
                                                DisplayMemberPath="Name"
                                                FontSize="16"
                                                VerticalAlignment="Center" />
                     </WrapPanel>
-                    <TextBox Margin="8" mah:TextBoxHelper.Watermark="User name" mah:TextBoxHelper.ClearTextButton="True" Text=""/>
-                    <PasswordBox mah:PasswordBoxHelper.CapsLockWarningToolTip="Caps lock ON" Margin="8" mah:TextBoxHelper.Watermark="Password" 
-                                 mah:TextBoxHelper.ClearTextButton="True"
-                                 Password="">
-                    </PasswordBox>
+                    <TextBox Margin="8" mah:TextBoxHelper.Watermark="User name" mah:TextBoxHelper.ClearTextButton="True" Text="{Binding SettingsUserName, Mode=TwoWay}"/>
+                    <!-- mah:PasswordBoxHelper.CapsLockWarningToolTip="Caps lock ON" -->
+                    <TextBox Margin="8" mah:TextBoxHelper.Watermark="Password" mah:TextBoxHelper.ClearTextButton="True" Text="{Binding SettingsPwd, Mode=TwoWay}"/>
                     <CheckBox x:Name="CbPreferred" Margin="8">Preferred</CheckBox>
                     <mah:NumericUpDown Minimum="0" Maximum="3600" Interval="1" StringFormat="G0"
                                             mah:TextBoxHelper.Watermark="Re check interval in minutes"
                                             Speedup="True"
                                             Visibility="{Binding IsChecked,ElementName=CbPreferred,Converter={StaticResource BoolToVis}}"/>
-                    <Button Margin="8" HorizontalAlignment="Right" Width="100">Save</Button>
+                    <Button Margin="8" Command="{Binding SaveSettingsCommand}" HorizontalAlignment="Right" Width="100">Save</Button>
                 </StackPanel>
             </mah:Flyout>
             <mah:Flyout Header="Settings" Position="Right" Width="400" Theme="Inverse" IsOpen="{Binding IsSettingsOpened}" CloseButtonIsCancel="True">

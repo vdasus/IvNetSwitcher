@@ -50,7 +50,7 @@ namespace IvNetSwitcher.UI.Properties {
             }
         }
         
-        [global::System.Configuration.ApplicationScopedSettingAttribute()]
+        [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute(@"
           <ArrayOfProfileDto xmlns:xsi=""http://www.w3.org/2001/XMLSchema-instance"" xmlns:xsd=""http://www.w3.org/2001/XMLSchema"">
@@ -77,6 +77,9 @@ namespace IvNetSwitcher.UI.Properties {
         public string Profiles {
             get {
                 return ((string)(this["Profiles"]));
+            }
+            set {
+                this["Profiles"] = value;
             }
         }
     }

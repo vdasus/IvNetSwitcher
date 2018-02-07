@@ -66,6 +66,8 @@ namespace IvNetSwitcher.UI
                     Topmost = false;
                     Focus();
                     break;
+                default:
+                    break;
             }
         }
 

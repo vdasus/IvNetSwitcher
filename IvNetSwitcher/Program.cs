@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Xml.Serialization;
 using DryIoc;
 using IvNetSwitcher.Core;
 using IvNetSwitcher.Core.Abstractions;
@@ -23,7 +21,8 @@ namespace IvNetSwitcher
         private static IAppService _appSvc;
 
         private static Profiles _profiles;
-        
+        private static IUtilsService _svc;
+
         #region Modifiers region
 
         private static bool IsRun { get; set; }
@@ -76,7 +75,7 @@ namespace IvNetSwitcher
 
                 if(!string.IsNullOrWhiteSpace(ToEncrypt))
                 {
-                    Console.WriteLine(Utils.GetEncryptedString(ToEncrypt, Settings.Default.EncSalt));
+                    Console.WriteLine(_svc.GetEncryptedString(ToEncrypt));
                     return (int)ExitCodes.Ok;
                 }
                 
@@ -122,13 +121,15 @@ namespace IvNetSwitcher
         private static void LoadData()
         {
             var tmpProfiles = Settings.Default.Profiles.XmlDeserializeFromString<List<ProfileDto>>();
-            _profiles = _appSvc.LoadData(new Profiles(_net, tmpProfiles, Settings.Default.EncSalt));
+            _profiles = _appSvc.LoadData(new Profiles(_net, _svc, tmpProfiles));
         }
 
         private static void ConfigurationRootInit()
         {
             _appSvc = Bootstrap.Container.Resolve<IAppService>();
             _net = Bootstrap.Container.Resolve<INetService>();
+            _svc = Bootstrap.Container.Resolve<IUtilsService>();
+            _svc.SetSalt(Settings.Default.EncSalt);
         }
 
         private static void ShowHelp(OptionSet p)

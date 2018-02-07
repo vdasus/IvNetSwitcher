@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -21,6 +22,7 @@ namespace IvNetSwitcher.UI.ViewModel
 
         private readonly INetService _net;
         private readonly IAppService _appSvc;
+        private readonly IUtilsService _svc;
 
         public string Caption { get; } =
             $"IvNetSwitcher v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
@@ -41,6 +43,8 @@ namespace IvNetSwitcher.UI.ViewModel
         public RelayCommand DeleteProfileCommand { get; set; }
         public RelayCommand RefreshNetworksCommand { get; set; }
         public RelayCommand RegisterCommand { get; set; }
+        public RelayCommand SaveSettingsCommand { get; set; }
+        public RelayCommand<int> PressTileCommand { get; set; }
 
         #endregion
 
@@ -50,14 +54,24 @@ namespace IvNetSwitcher.UI.ViewModel
         public bool IsSettingsOpened { get; set; }
         public bool IsHelpOpened { get; set; }
         public bool IsRegisterOpened { get; set; }
-        
+
+        #region Settings region
+
         public Profiles RegisteredNets { get; set; }
         public IReadOnlyList<Network> AvailableNets { get; set; }
+        public Network SelectedNet { get; set; }
+
+        public string SettingsUserName { get; set; }
+        public string SettingsPwd { get; set; }
         
-        public MainViewModel(INetService net, IAppService appSvc)
+        #endregion
+        
+        public MainViewModel(INetService net, IAppService appSvc, IUtilsService svc)
         {
             _net = net;
             _appSvc = appSvc;
+            _svc = svc;
+            _svc.SetSalt(Settings.Default.EncSalt);
 
             InitCommands();
             LoadData();
@@ -66,7 +80,7 @@ namespace IvNetSwitcher.UI.ViewModel
         private void LoadData()
         {
             var tmpProfiles = Settings.Default.Profiles.XmlDeserializeFromString<List<ProfileDto>>();
-            RegisteredNets = _appSvc.LoadData(new Profiles(_net, tmpProfiles, Settings.Default.EncSalt));
+            RegisteredNets = _appSvc.LoadData(new Profiles(_net, _svc, tmpProfiles));
         }
 
         // TODO just temp snippets
@@ -85,6 +99,7 @@ namespace IvNetSwitcher.UI.ViewModel
             RefreshCommand = new RelayCommand(LoadData);
 
             SettingsCommand = new RelayCommand(() => { IsSettingsOpened = !IsSettingsOpened; });
+
             HelpCommand = new RelayCommand(() => { IsHelpOpened = !IsHelpOpened; });
 
             RegisterCommand = new RelayCommand(async () =>
@@ -93,12 +108,37 @@ namespace IvNetSwitcher.UI.ViewModel
                 if(IsRegisterOpened) await LoadAvailableNetworks();
             });
 
-            AddProfileCommand = new RelayCommand(() => { });
+            AddProfileCommand = new RelayCommand(() =>
+            {
+                
+            });
+
             GoPlayCommand = new RelayCommand(() => { });
             GoNextCommand = new RelayCommand(() => { });
             EditProfileCommand = new RelayCommand(() => { });
             DeleteProfileCommand = new RelayCommand(() => { });
+            SaveSettingsCommand = new RelayCommand(() =>
+            {
+                // TODO domain and comment
+                // TODO UI password input
+                _appSvc.RegisterProfile(new Profile(_net, _svc, SelectedNet.Id, SelectedNet.Name, SettingsUserName, SettingsPwd, "", "", true));
+
+                try
+                {
+                    List<ProfileDto> profiles = _appSvc.GetProfilesDtos().ToList();
+                    Settings.Default.Profiles = profiles.SerializeToXmlStringIndented();
+                    Settings.Default.Save();
+                    LoadData();
+                }
+                catch (Exception ex)
+                {
+                    _log.Error(ex);
+                    StatusText = ex.Message;
+                }
+            });
+
             RefreshNetworksCommand = new RelayCommand(async () => { await LoadAvailableNetworks(); });
+            PressTileCommand = new RelayCommand<int>((e) => { StatusText = e.ToString(); });
         }
 
         private async Task LoadAvailableNetworks()
