@@ -2,14 +2,14 @@
 <SettingsFile xmlns="http://schemas.microsoft.com/VisualStudio/2004/01/settings" CurrentProfile="(Default)" GeneratedClassNamespace="IvNetSwitcher.UI.Properties" GeneratedClassName="Settings">
   <Profiles />
   <Settings>
-    <Setting Name="Delay" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">0</Value>
-    </Setting>
-    <Setting Name="HostToPing" Type="System.String" Scope="Application">
+    <Setting Name="HostToPing" Type="System.String" Scope="User">
       <Value Profile="(Default)">http://google.com</Value>
     </Setting>
-    <Setting Name="EncSalt" Type="System.String" Scope="Application">
-      <Value Profile="(Default)">261A2220-C66E-496E-9DC0-5FF5174B7711</Value>
+    <Setting Name="DelayInSec" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">10</Value>
+    </Setting>
+    <Setting Name="EncSalt" Type="System.String" Scope="User">
+      <Value Profile="(Default)">730DE481-2077-4D59-AF65-543669121202</Value>
     </Setting>
     <Setting Name="Profiles" Type="System.String" Scope="User">
       <Value Profile="(Default)">
@@ -18,22 +18,16 @@
               &lt;Id&gt;1&lt;/Id&gt;
               &lt;Name&gt;name&lt;/Name&gt;
               &lt;User&gt;user&lt;/User&gt;
-              &lt;Password&gt;IbP8X/dRF+c3YeCDtBg4d7ZzhQvhYDIZirJ9gAt/eoXPgH3QOWGWpeG65ZfrzPb3d9K2sY17bojnsYck3gaWYD+F+vq4jrVqvrh0fei3l5gWkGiBjP0xNXGw7Nm3ds/Y&lt;/Password&gt;
+              &lt;Password&gt;Y7kMhDfy6OBXqP2BhzkQiIobGxyYdNtZVxCv3z3sZNiER/SAvYifycBy6yj5rUMrBZ3dwe9YarugZNVWgintZeRK8o64C9ggi/8rLEih/kHxklsOV4VLm1ranm9Z9DsJ&lt;/Password&gt;
               &lt;Domain&gt;domain&lt;/Domain&gt;
               &lt;Comment&gt;comment&lt;/Comment&gt;
               &lt;Active&gt;false&lt;/Active&gt;
             &lt;/ProfileDto&gt;
-            &lt;ProfileDto&gt;
-              &lt;Id&gt;2&lt;/Id&gt;
-              &lt;Name&gt;name2&lt;/Name&gt;
-              &lt;User&gt;user2&lt;/User&gt;
-              &lt;Password&gt;IbP8X/dRF+c3YeCDtBg4d7ZzhQvhYDIZirJ9gAt/eoXPgH3QOWGWpeG65ZfrzPb3d9K2sY17bojnsYck3gaWYD+F+vq4jrVqvrh0fei3l5gWkGiBjP0xNXGw7Nm3ds/Y&lt;/Password&gt;
-              &lt;Domain&gt;domain2&lt;/Domain&gt;
-              &lt;Comment&gt;comment2&lt;/Comment&gt;
-              &lt;Active&gt;true&lt;/Active&gt;
-            &lt;/ProfileDto&gt;
           &lt;/ArrayOfProfileDto&gt;
         </Value>
+    </Setting>
+    <Setting Name="Retry" Type="System.Int32" Scope="User">
+      <Value Profile="(Default)">3</Value>
     </Setting>
   </Settings>
 </SettingsFile>

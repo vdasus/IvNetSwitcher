@@ -23,14 +23,10 @@ namespace IvNetSwitcher.Core.Domain
             _currentProfile = Items.FirstOrDefault(x => x.Active);
         }
 
-        public Profile GetCurrentProfile()
+        public Result<Profile> GetCurrentProfile()
         {
-            return Items.FirstOrDefault(x => x.Id == _currentProfile.Id);
-        }
-
-        public int GetCurrentProfileId()
-        {
-            return _currentProfile.Id;
+            var rez = Items.FirstOrDefault(x => x.Id == _currentProfile.Id);
+            return rez != null ? Result.Ok(rez) : Result.Fail<Profile>("No active profiles");
         }
 
         public void AddProfile(Profile profile)
@@ -52,10 +48,10 @@ namespace IvNetSwitcher.Core.Domain
             return Items.Select(zz => zz.GetProfileDto()).ToList();
         }
 
-        public Profile CircularGetNextProfile()
+        public Result<Profile> CircularGetNextProfile()
         {
             _currentProfile = Items.FirstOrDefault(x => x.Id > _currentProfile.Id) ?? Items.OrderBy(x => x.Id).FirstOrDefault();
-            return _currentProfile;
+            return _currentProfile != null ? Result.Ok(_currentProfile) : Result.Fail<Profile>("No profiles");
         }
 
         private IList<Profile> FillProfiles(IEnumerable<ProfileDto> items)

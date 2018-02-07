@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using GalaSoft.MvvmLight.Command;
 using GalaSoft.MvvmLight.Messaging;
@@ -23,6 +24,8 @@ namespace IvNetSwitcher.UI.ViewModel
         private readonly INetService _net;
         private readonly IAppService _appSvc;
         private readonly IUtilsService _svc;
+
+        private bool _isMonitoring;
 
         public string Caption { get; } =
             $"IvNetSwitcher v{System.Reflection.Assembly.GetExecutingAssembly().GetName().Version}";
@@ -73,6 +76,8 @@ namespace IvNetSwitcher.UI.ViewModel
             _svc = svc;
             _svc.SetSalt(Settings.Default.EncSalt);
 
+            _isMonitoring = false;
+
             InitCommands();
             LoadData();
         }
@@ -118,7 +123,16 @@ namespace IvNetSwitcher.UI.ViewModel
                 await Task.Run(() =>
                 {
                     SetBusyIndicator(true, "Running ...");
-                    _appSvc.Run(new Uri(Settings.Default.HostToPing), int.Parse(Settings.Default.Delay), 3, 0);
+                    while (_isMonitoring)
+                    {
+                        var go = _appSvc.Run(new Uri(Settings.Default.HostToPing), Settings.Default.Retry);
+                        if (go.IsFailure)
+                        {
+                            SetBusyIndicator(false, go.Error);
+                            break;
+                        };
+                        Thread.Sleep(TimeSpan.FromSeconds(Settings.Default.DelayInSec));
+                    }
                 });
             });
 

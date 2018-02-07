@@ -144,7 +144,7 @@ namespace IvNetSwitcher
         private static void Do()
         {
             LoadData();
-            _appSvc.Run(HostToPing,  DelayInSec, Retry, MaxTimesToCheck);
+            _appSvc.Run(HostToPing, Retry);
         }
     }
 }

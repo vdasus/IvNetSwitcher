@@ -41,7 +41,7 @@ namespace IvNetSwitcher.Core.Tests.Domain
 
             //Assert
             sut.Should().NotBeNull();
-            sut.Id.Should().Be(id);
+            sut.Value.Id.Should().Be(id);
         }
 
         [Fact]
@@ -55,10 +55,10 @@ namespace IvNetSwitcher.Core.Tests.Domain
             var sut3 = _sutObjects.CircularGetNextProfile();
 
             //Assert
-            sut0.Id.Should().Be(3);
-            sut1.Id.Should().Be(1);
-            sut2.Id.Should().Be(2);
-            sut3.Id.Should().Be(3);
+            sut0.Value.Id.Should().Be(3);
+            sut1.Value.Id.Should().Be(1);
+            sut2.Value.Id.Should().Be(2);
+            sut3.Value.Id.Should().Be(3);
         }
     }
 }

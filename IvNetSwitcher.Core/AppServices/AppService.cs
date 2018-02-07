@@ -62,43 +62,47 @@ namespace IvNetSwitcher.Core.AppServices
 
         public Result Run(Uri hostToPing, int retry)
         {
-            _log.Trace($"ping to {_profiles.GetCurrentProfile().Name}");
-            var rez = MakePing(hostToPing)
+            var rez = Result.Ok();
+            var curr = _profiles.GetCurrentProfile();
+            if (curr.IsFailure) return Result.Fail(curr.Error);
+            
+            _log.Trace($"ping to {curr.Value.Name}");
+            MakePing(hostToPing)
+                .OnSuccess(() => 
+                    _log.Trace("ping successful"))
                 .OnFailure(() =>
                 {
-                    _log.Error(
-                        $"Failure ping to {hostToPing.AbsolutePath} with {_profiles.GetCurrentProfile().Name}");
-                    TryReconnect(hostToPing, retry);
-                })
-                .OnSuccess(() =>
-                    _log.Trace("ping successful"));
-            return _profiles.GetCurrentProfile().IsConnected
-                ? Result.Ok()
-                : Result.Fail($"Can't connect to any");
+                    _log.Error($"Failure ping to {hostToPing.AbsolutePath} with {curr.Value.Name}");
+                    rez = TryReconnect(retry);
+                });
+            return rez;
         }
 
-        private void TryReconnect(Uri hostToPing, int retry)
+        private Result TryReconnect(int retry)
         {
             var i = 0;
             while (i < _profiles.Items.Count)
             {
                 var prof = _profiles.CircularGetNextProfile();
+                if (prof.IsFailure) break;
 
                 for (int j = 0; j < retry; j++)
                 {
-                    _log.Debug($"{j + 1} try to connect to {prof.Name}");
-                    if (prof.Connect().IsSuccess) break;
+                    _log.Debug($"{j + 1} try to connect to {prof.Value.Name}");
+                    if (prof.Value.Connect().IsSuccess) break;
                 }
 
-                if (prof.IsConnected)
+                if (prof.Value.IsConnected)
                 {
-                    _log.Debug($"Connected to {prof.Name}");
-                    return;
+                    _log.Debug($"Connected to {prof.Value.Name}");
+                    return Result.Ok();
                 }
 
-                _log.Error($"Connect to {prof.Name} failed");
+                _log.Error($"Connect to {prof.Value.Name} failed");
                 i++;
             }
+
+            return Result.Fail("Can't reconnect");
         }
 
         #region Privates region
@@ -111,7 +115,7 @@ namespace IvNetSwitcher.Core.AppServices
             PingOptions options = new PingOptions { DontFragment = true };
 
             PingReply reply = pingSender.Send(hostToPing.Host, timeout, buffer, options);
-            return reply.Status == IPStatus.Success ? Result.Ok() : Result.Fail("Can't connect");
+            return reply.Status == IPStatus.Success ? Result.Ok() : Result.Fail("Can't make ping");
         }
 
         #endregion
