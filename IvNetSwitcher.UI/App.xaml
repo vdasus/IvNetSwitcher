@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:IvNetSwitcher.UI" 
              StartupUri="MainWindow.xaml" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" d1p1:Ignorable="d" 
-             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006">
+             xmlns:d1p1="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:gif="http://wpfanimatedgif.codeplex.com">
     <Application.Resources>
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
@@ -68,6 +69,8 @@
                 </DrawingImage.Drawing>
             </DrawingImage>
 
+            <Image x:Key="TilePicture" gif:ImageBehavior.RepeatBehavior="Forever" gif:ImageBehavior.AnimatedSource="Resources/wifi_s.gif"/>
+            
             <!--<DrawingImage x:Key="StartImage">
                 <DrawingImage.Drawing>
                     <ImageDrawing Rect="0,0,16,16" ImageSource="/Resources/Play.png" />

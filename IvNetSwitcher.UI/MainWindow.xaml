@@ -6,6 +6,7 @@
              xmlns:mah="http://metro.mahapps.com/winfx/xaml/controls"
         xmlns:tb="http://www.hardcodet.net/taskbar"
         xmlns:wpf="clr-namespace:LoadingIndicators.WPF;assembly=LoadingIndicators.WPF"
+        xmlns:gif="http://wpfanimatedgif.codeplex.com"
         mc:Ignorable="d"
                       GlowBrush="DarkSlateGray"
                       WindowTransitionsEnabled="True"
@@ -112,29 +113,31 @@
                     </Button>
                 </ToolBar>
             </ToolBarTray>
-                <ItemsControl Grid.Row="1" Grid.Column="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
-                    <ItemsControl.ItemsPanel>
-                        <ItemsPanelTemplate>
-                            <WrapPanel Orientation="Horizontal" ></WrapPanel>
-                        </ItemsPanelTemplate>
-                    </ItemsControl.ItemsPanel>
-                    <ItemsControl.ItemTemplate>
-                        <DataTemplate>
-                            <mah:Tile Title="{Binding Name, Mode=OneTime }" 
-                                                   Width="200"
+            <ItemsControl Grid.Row="1" Grid.Column="0" Margin="10" ItemsSource="{Binding RegisteredNets.Items}">
+                <ItemsControl.ItemsPanel>
+                    <ItemsPanelTemplate>
+                        <WrapPanel Orientation="Horizontal" ></WrapPanel>
+                    </ItemsPanelTemplate>
+                </ItemsControl.ItemsPanel>
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate>
+                        <mah:Tile Title="{Binding Name, Mode=OneTime }" 
+                                                   Width="146"
                                                    Height="100" 
                                                    Count="{Binding Active}"
                                                    KeepDragging="True" 
-                                                   VerticalTitleAlignment="Top"
+                                                   VerticalTitleAlignment="Center"
+                                                   HorizontalAlignment="Center"
                                       Command="{Binding Path=DataContext.PressTileCommand, RelativeSource={RelativeSource AncestorType={x:Type mah:MetroWindow}}}"
                                       CommandParameter="{Binding Id}">
-                                <!--<mah:Tile.Background>
-                                    <ImageBrush ImageSource="Images/windesktop.jpg" />
-                                </mah:Tile.Background>-->
-                            </mah:Tile>
-                        </DataTemplate>
-                    </ItemsControl.ItemTemplate>
-                </ItemsControl>
+                            <mah:Tile.Content>
+                                <Image Visibility="{Binding Active, Converter={StaticResource BoolToVis}}" 
+                                       gif:ImageBehavior.RepeatBehavior="Forever" gif:ImageBehavior.AnimatedSource="Resources/wifi_s.gif" />
+                            </mah:Tile.Content>
+                        </mah:Tile>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ItemsControl>
         </Grid>
         <!--<ScrollViewer PreviewMouseWheel="ScrollViewer_PreviewMouseWheel"></ScrollViewer>-->
     </DockPanel>

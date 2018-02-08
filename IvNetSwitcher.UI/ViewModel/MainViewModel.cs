@@ -133,7 +133,8 @@ namespace IvNetSwitcher.UI.ViewModel
                         {
                             SetBusyIndicator(false, go.Error);
                             break;
-                        };
+                        }
+
                         Thread.Sleep(TimeSpan.FromSeconds(Settings.Default.DelayInSec));
                     }
                     StatusText = CWAIT_MSG;
@@ -170,13 +171,12 @@ namespace IvNetSwitcher.UI.ViewModel
                 }
                 catch (Exception ex)
                 {
-                    _log.Error(ex);
-                    StatusText = ex.Message;
+                    InformAboutError(ex);
                 }
             });
 
             RefreshNetworksCommand = new RelayCommand(async () => { await LoadAvailableNetworks(); });
-            PressTileCommand = new RelayCommand<int>((e) => { StatusText = e.ToString(); });
+            PressTileCommand = new RelayCommand<int>(e => { StatusText = e.ToString(); });
         }
 
         private async Task LoadAvailableNetworks()
@@ -198,11 +198,20 @@ namespace IvNetSwitcher.UI.ViewModel
                 AvailableNets = _appSvc.GetNetworks();
             });
 
-        private void InformAboutError(string errorString)
+        /*private void InformAboutError(string errorString)
         {
-            _log.Error(errorString);
+            _log .Error(errorString);
+            
             Messenger.Default.Send(new NotificationMessage(this, errorString, "ShowErrorTooltip"));
             StatusText = errorString;
+        }*/
+
+        private void InformAboutError(Exception ex)
+        {
+            _log.Error(ex);
+
+            Messenger.Default.Send(new NotificationMessage(this, ex.Message, "ShowErrorTooltip"));
+            StatusText = ex.Message;
         }
 
         private void SetBusyIndicator(bool isOn = true, string message = CWAIT_MSG)
