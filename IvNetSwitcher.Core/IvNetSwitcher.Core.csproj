@@ -20,7 +20,7 @@
     <None Remove="IvNetSwitcher.Core.~v" />
   </ItemGroup>
   <ItemGroup>
-    <PackageReference Include="CSharpFunctionalExtensions" Version="1.8.1" />
+    <PackageReference Include="CSharpFunctionalExtensions" Version="1.9.0" />
     <PackageReference Include="DryIoc.dll" Version="2.12.7" />
     <PackageReference Include="NLog" Version="4.4.12" />
     <PackageReference Include="SimpleWifi" Version="1.0.0" />
